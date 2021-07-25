@@ -42,6 +42,14 @@ exports.getFeaturedProducts = catchAsyncErrors(async (req, res, next) => {
         featuredProducts
     })
 })
+exports.getHotProducts = catchAsyncErrors(async (req, res, next) => {
+
+    const hotProducts = await Product.find().sort('-sold').limit(4)
+    res.status(200).json({
+        success: true,
+        hotProducts
+    })
+})
 exports.getLatestProducts = catchAsyncErrors(async (req, res, next) => {
 
     const latestProducts = await Product.find().sort('-createdAt').limit(4)

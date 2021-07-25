@@ -28,6 +28,7 @@ import Payment from './components/cart/Payment'
 
 // Order Imports
 import MyListOrders from './components/orders/MyListOrders'
+import OrderDetails from './components/orders/OrderDetails'
 
 function App() {
     return (
@@ -54,6 +55,7 @@ function App() {
             <Route path="/register" component={Register} />
             <ProtectedRoute path="/profile" component={Profile} exact />
             <ProtectedRoute path="/orders/me" component={MyListOrders} exact />
+            <ProtectedRoute path="/order/:id" component={OrderDetails} exact />
             <ProtectedRoute path="/profile/password/update" component={UpdatePassword} exact />
 
             <Footer />

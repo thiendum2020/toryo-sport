@@ -72,7 +72,7 @@ const MyListOrders = () => {
             })
         })
 
-        return data;
+        return data
     }
 
     return (
@@ -89,20 +89,28 @@ const MyListOrders = () => {
                         <div className="my-orders">
                             <h3>My Orders</h3>
 
-                            {loading ? <Loader /> : (
-                                <MDBDataTableV5
-                                    data={setOrders()}
-                                    className="px-3"
-                                    striped
-                                    hover
-                                    entriesOptions={[10, 20, 50]}
-                                    entries={10}
-                                    pagingTop
-                                    searchTop
-                                    searchBottom={false}
-                                    barReverse
-                                />
-                            )}
+                            {
+                                loading ? <Loader /> : (
+                                    orders.length === 0 ? (
+                                        <>
+                                            <h4 style={{ marginTop: '60px' }}>Orders is empty</h4>
+                                        </>
+                                    ) : (
+                                        <MDBDataTableV5
+                                            data={setOrders()}
+                                            className="px-3"
+                                            striped
+                                            hover
+                                            entriesOptions={[10, 20, 50]}
+                                            entries={10}
+                                            pagingTop
+                                            searchTop
+                                            searchBottom={false}
+                                            barReverse
+                                        />
+                                    )
+                                )
+                            }
                         </div>
                     </div>
                 </div>

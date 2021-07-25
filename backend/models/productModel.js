@@ -65,6 +65,11 @@ const productSchema = new mongoose.Schema({
         required: true,
         default: 0
     },
+    sold: {
+        type: Number,
+        required: true,
+        default: 0
+    },
     numOfReviews: {
         type: Number,
         default: 0

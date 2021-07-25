@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getFeaturedProducts, getLatestProducts } from '../actions/productActions'
+import { getFeaturedProducts, getHotProducts, getLatestProducts } from '../actions/productActions'
 import Product from './product/Product'
 import Loader from './layouts/Loader'
 import { useAlert } from 'react-alert'
@@ -17,9 +17,14 @@ const Home = () => {
     const dispatch = useDispatch()
     const alert = useAlert()
     const { loadingF, featuredProducts, errorF } = useSelector(state => state.featuredProducts)
+    const { loadingH, hotProducts, errorH } = useSelector(state => state.hotProducts)
     const { loadingL, latestProducts, errorL } = useSelector(state => state.latestProducts)
 
     useEffect(() => {
+        if (errorH) {
+            return alert.error(errorH)
+        }
+        dispatch(getHotProducts())
         if (errorF) {
             return alert.error(errorF)
         }
@@ -28,7 +33,8 @@ const Home = () => {
             return alert.error(errorF)
         }
         dispatch(getLatestProducts())
-    }, [dispatch, alert, errorF, errorL])
+
+    }, [dispatch, alert, errorF, errorL, errorH])
 
 
     return (
@@ -90,6 +96,27 @@ const Home = () => {
                             </Link>
                         </div>
                     </div>
+                </div>
+            </section>
+            {/* hot collection */}
+            <section className="hot">
+                <div className="container">
+                    <div className="hot-title">
+                        <h2>Hot</h2>
+                        <p>Hot Products</p>
+                    </div>
+                    {
+                        loadingH ? <Loader /> : (
+                            <div className="row">
+                                {
+                                    hotProducts && hotProducts.map(product => (
+                                        <Product product={product} col={3} key={product._id} />
+                                    ))
+                                }
+                            </div>
+                        )
+                    }
+
                 </div>
             </section>
             {/* featured collection */}

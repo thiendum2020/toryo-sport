@@ -5,8 +5,10 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import {
     productsReducer,
     featuredProductsReducer,
+    hotProductsReducer,
     latestProductsReducer,
     productDetailsReducer,
+    newReviewReducer,
 } from './reducers/productReducers'
 
 import {
@@ -28,10 +30,15 @@ import {
 } from './reducers/orderReducers'
 
 const reducer = combineReducers({
+
     products: productsReducer,
+    hotProducts: hotProductsReducer,
     featuredProducts: featuredProductsReducer,
     latestProducts: latestProductsReducer,
     productDetails: productDetailsReducer,
+
+    newReview: newReviewReducer,
+
 
     auth: authReducer,
     user: userReducer,
@@ -40,6 +47,7 @@ const reducer = combineReducers({
 
     newOrder: newOrderReducer,
     myOrders: myOrdersReducer,
+    orderDetails: orderDetailsReducer,
 })
 
 const userLoginFromStorage = localStorage.getItem('userLogin') ? JSON.parse(localStorage.getItem('userLogin')) : null

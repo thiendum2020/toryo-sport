@@ -5,6 +5,7 @@ const {
     newProduct,
     getProducts,
     getFeaturedProducts,
+    getHotProducts,
     getLatestProducts,
     getSingleProduct,
     updateProduct,
@@ -26,6 +27,7 @@ router.route('/product/:id')
     .delete(isAuthenticatedUser, authorizeRoles('admin'), deleteProduct)
 
 router.route('/products/featured').get(getFeaturedProducts)
+router.route('/products/hot').get(getHotProducts)
 router.route('/products/latest').get(getLatestProducts)
 
 router.route('/review').put(isAuthenticatedUser, createProductReview)

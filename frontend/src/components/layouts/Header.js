@@ -9,7 +9,7 @@ import { CART_RESET } from '../../constants/cartConstants'
 const Header = () => {
     const dispatch = useDispatch()
     const alert = useAlert()
-    const { userLogin, loading } = useSelector(state => state.auth)
+    const { userLogin } = useSelector(state => state.auth)
     const { cartItems } = useSelector(state => state.cart)
 
     const logoutHandler = () => {
@@ -67,6 +67,7 @@ const Header = () => {
                     <div className="bg-white">
                         <div className="mid-header container">
                             <Link to="/" className="logo">ToryoSport</Link>
+
                             <Route render={({ history }) => <Search history={history} />} />
 
                             <ul className="user-menu">

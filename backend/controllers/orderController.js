@@ -23,11 +23,8 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
         shippingPrice,
         totalPrice,
         paymentInfo,
-        paidAt: Date.now(),
+        paidAt: 'no',
         user: req.user._id,
-    })
-    order.orderItems.forEach(async item => {
-        await updateStock(item.product, item.quantity)
     })
 
     res.status(201).json({
@@ -119,6 +116,7 @@ exports.deleteOrder = catchAsyncErrors(async (req, res, next) => {
 async function updateStock(id, quantity) {
     const product = await Product.findById(id)
     product.stock = product.stock - quantity
+    product.sold = product.sold + quantity
 
     await product.save({ validateBeforeSave: false })
 }

@@ -50,7 +50,7 @@ const Payment = ({ history }) => {
 
             order.paymentInfo = {
                 name: 'Ship COD',
-                status: null
+                status: 'no'
             }
 
             dispatch(createOrder(order))
