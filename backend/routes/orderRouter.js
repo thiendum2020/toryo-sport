@@ -7,6 +7,7 @@ const {
     getMyOrders,
     getAllOrdersByAdmin,
     updateOrdersByAdmin,
+    updateStatusOrder,
     deleteOrder
 } = require('../controllers/orderController')
 
@@ -14,6 +15,7 @@ router.route('/order/new')
     .post(isAuthenticatedUser, newOrder)
 router.route('/order/:id')
     .get(isAuthenticatedUser, getSingleOrder)
+    .put(isAuthenticatedUser, updateStatusOrder)
 router.route('/orders/me')
     .get(isAuthenticatedUser, getMyOrders)
 router.route('/admin/orders')
@@ -21,4 +23,5 @@ router.route('/admin/orders')
 router.route('/admin/order/:id')
     .put(isAuthenticatedUser, authorizeRoles('admin'), updateOrdersByAdmin)
     .delete(isAuthenticatedUser, authorizeRoles('admin'), deleteOrder)
+
 module.exports = router

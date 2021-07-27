@@ -8,7 +8,7 @@ import { useAlert } from 'react-alert'
 import Pagination from "react-js-pagination"
 
 
-const Shop = ({ match }) => {
+const Shop = ({ match, history }) => {
 
     const dispatch = useDispatch()
     const alert = useAlert()
@@ -136,7 +136,7 @@ const Shop = ({ match }) => {
                                                     <>
                                                         {
                                                             products && products.map(product => (
-                                                                <Product product={product} col={4} key={product._id} />
+                                                                <Product product={product} col={4} key={product._id} history={history} />
                                                             ))
                                                         }
                                                     </>

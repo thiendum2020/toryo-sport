@@ -16,7 +16,7 @@ const Login = ({ history, location }) => {
     const alert = useAlert()
     const dispatch = useDispatch()
 
-    const { isAuthenticated, error, loading } = useSelector(state => state.auth);
+    const { isAuthenticated, error, loading } = useSelector(state => state.auth)
 
     const redirect = location.search ? location.search.split('=')[1] : '/'
 
@@ -73,7 +73,7 @@ const Login = ({ history, location }) => {
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}
                                                 placeholder="Password" />
-                                            <Link to="/password/forgot" className="">Forgot Password?</Link>
+                                            <Link to="/password/forgot">Forgot Password?</Link>
                                             <button
                                                 id="login_button"
                                                 type="submit"

@@ -2,12 +2,11 @@ import React, { Fragment, useEffect } from 'react'
 
 import MetaData from '../layouts/MetaData'
 import CheckoutSteps from './CheckoutSteps'
-
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { createOrder, clearErrors } from '../../actions/orderActions'
-
-import axios from 'axios'
+import swal from 'sweetalert'
+import { CART_RESET } from '../../constants/cartConstants'
 
 const Payment = ({ history }) => {
 
@@ -45,22 +44,36 @@ const Payment = ({ history }) => {
         e.preventDefault()
 
         document.querySelector('#pay_btn').disabled = true
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    try {
+                        order.paymentInfo = {
+                            name: 'Ship COD',
+                            status: 'no'
+                        }
+                        dispatch(createOrder(order))
+                        swal("Poof! Your imaginary file has been deleted!", {
+                            icon: "success",
+                        })
+                        dispatch({ type: CART_RESET })
+                        history.push('/profile/orders')
 
-        try {
+                    } catch (error) {
+                        document.querySelector('#pay_btn').disabled = false
+                        alert.error(error.response.data.message)
+                    }
+                } else {
+                    history.push('/cart')
+                }
+            })
 
-            order.paymentInfo = {
-                name: 'Ship COD',
-                status: 'no'
-            }
-
-            dispatch(createOrder(order))
-
-            history.push('/order/success')
-
-        } catch (error) {
-            document.querySelector('#pay_btn').disabled = false;
-            alert.error(error.response.data.message)
-        }
     }
 
     return (

@@ -23,10 +23,12 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
         shippingPrice,
         totalPrice,
         paymentInfo,
-        paidAt: 'no',
         user: req.user._id,
     })
-
+    if (order.paymentInfo.name !== 'Ship COD') {
+        order.paidAt = Date.now()
+    }
+    await order.save()
     res.status(201).json({
         success: true,
         order
@@ -80,14 +82,14 @@ exports.getAllOrdersByAdmin = catchAsyncErrors(async (req, res, next) => {
 exports.updateOrdersByAdmin = catchAsyncErrors(async (req, res, next) => {
     const order = await Order.findById(req.params.id)
 
-    if (order.orderStatus === 'Delivered') {
+    if (order.orderStatus === 'Delivering') {
         return next(new ErrorHandler('You have already delivered this order', 400))
     }
     order.orderItems.forEach(async item => {
         await updateStock(item.product, item.quantity)
     })
 
-    order.orderStatus = req.body.status
+    order.orderStatus = req.body.orderStatus
     order.deliveredAt = Date.now()
     await order.save()
 
@@ -97,6 +99,25 @@ exports.updateOrdersByAdmin = catchAsyncErrors(async (req, res, next) => {
 
 })
 
+//UPDATE status order    PUT/api/order/:id
+exports.updateStatusOrder = catchAsyncErrors(async (req, res, next) => {
+    const order = await Order.findById(req.params.id)
+
+    if (!order) {
+        return next(new ErrorHandler('Order not found with this ID', 404))
+    }
+    order.orderStatus = req.body.orderStatus
+    if (req.body.orderStatus === 'Received') {
+        order.receivedAt = Date.now()
+        order.paidAt = Date.now()
+    }
+    await order.save()
+
+    res.status(201).json({
+        success: true
+    })
+
+})
 //DElete order    DELETE/api/admin/order/:id
 exports.deleteOrder = catchAsyncErrors(async (req, res, next) => {
     const order = await Order.findById(req.params.id)

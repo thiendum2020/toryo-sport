@@ -13,7 +13,7 @@ import MetaData from './layouts/MetaData'
 import Services from './layouts/Services'
 import Clients from './layouts/Clients'
 
-const Home = () => {
+const Home = ({ history }) => {
     const dispatch = useDispatch()
     const alert = useAlert()
     const { loadingF, featuredProducts, errorF } = useSelector(state => state.featuredProducts)
@@ -49,7 +49,7 @@ const Home = () => {
                             <h1>Toryo Designs</h1>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam consequatur quia ipsam sint
                                 voluptatibus assumenda tenetur laborum praesentium! Tenetur, repellendus.</p>
-                            <a href className="btn">Explore Now</a>
+                            <Link to='/shop' className="btn">Explore Now</Link>
                         </div>
                         <div className="hero-image col-6">
                             <img src={Banner} alt="Banner" />
@@ -110,7 +110,7 @@ const Home = () => {
                             <div className="row">
                                 {
                                     hotProducts && hotProducts.map(product => (
-                                        <Product product={product} col={3} key={product._id} />
+                                        <Product product={product} col={3} key={product._id} history={history} />
                                     ))
                                 }
                             </div>
@@ -131,7 +131,7 @@ const Home = () => {
                             <div className="row">
                                 {
                                     featuredProducts && featuredProducts.map(product => (
-                                        <Product product={product} col={3} key={product._id} />
+                                        <Product product={product} col={3} key={product._id} history={history} />
                                     ))
                                 }
                             </div>
@@ -152,7 +152,7 @@ const Home = () => {
                             <div className="row">
                                 {
                                     latestProducts && latestProducts.map(product => (
-                                        <Product product={product} col={3} key={product._id} />
+                                        <Product product={product} col={3} key={product._id} history={history} />
                                     ))
                                 }
                             </div>

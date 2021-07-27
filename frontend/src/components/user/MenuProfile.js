@@ -10,7 +10,7 @@ const MenuProfile = () => {
                     <li><Link to="/profile">Profile</Link></li>
                     <li> <Link to="/profile/password/update">Change Password</Link></li>
                 </ul>
-                <h5><i class='bx bxs-receipt'></i><Link to="/orders/me">My orders</Link></h5>
+                <h5><i class='bx bxs-receipt'></i><Link to="/profile/orders">My orders</Link></h5>
             </div>
         </Fragment>
     )

@@ -13,6 +13,9 @@ import {
     UPDATE_ORDER_SUCCESS,
     UPDATE_ORDER_REQUEST,
     UPDATE_ORDER_FAIL,
+    CANCEL_ORDER_REQUEST,
+    CANCEL_ORDER_SUCCESS,
+    CANCEL_ORDER_FAIL,
     DELETE_ORDER_REQUEST,
     DELETE_ORDER_SUCCESS,
     DELETE_ORDER_FAIL,
@@ -32,13 +35,14 @@ export const createOrder = (order) => async (dispatch, getState) => {
                 'Content-Type': 'application/json'
             }
         }
-
         const { data } = await axios.post('/api/order/new', order, config)
 
         dispatch({
             type: CREATE_ORDER_SUCCESS,
             payload: data
         })
+        localStorage.removeItem('cartItems')
+
 
     } catch (error) {
         dispatch({
@@ -73,7 +77,7 @@ export const myOrders = () => async (dispatch) => {
 export const getOrderDetails = (id) => async (dispatch) => {
     try {
 
-        dispatch({ type: ORDER_DETAILS_REQUEST });
+        dispatch({ type: ORDER_DETAILS_REQUEST })
 
         const { data } = await axios.get(`/api/order/${id}`)
 
@@ -111,8 +115,8 @@ export const allOrders = () => async (dispatch) => {
     }
 }
 
-// update order
-export const updateOrder = (id, orderData) => async (dispatch) => {
+// update order by admin
+export const updateOrderByAdmin = (id, orderData) => async (dispatch) => {
     try {
 
         dispatch({ type: UPDATE_ORDER_REQUEST })
@@ -124,6 +128,33 @@ export const updateOrder = (id, orderData) => async (dispatch) => {
         }
 
         const { data } = await axios.put(`/api/admin/order/${id}`, orderData, config)
+
+        dispatch({
+            type: UPDATE_ORDER_SUCCESS,
+            payload: data.success
+        })
+
+    } catch (error) {
+        dispatch({
+            type: UPDATE_ORDER_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
+
+// update order by user
+export const updateStatusOrder = (id, status) => async (dispatch) => {
+    try {
+
+        dispatch({ type: UPDATE_ORDER_REQUEST })
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        const { data } = await axios.put(`/api/order/${id}`, status, config)
 
         dispatch({
             type: UPDATE_ORDER_SUCCESS,

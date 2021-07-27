@@ -36,22 +36,22 @@ const reducer = combineReducers({
     featuredProducts: featuredProductsReducer,
     latestProducts: latestProductsReducer,
     productDetails: productDetailsReducer,
-
     newReview: newReviewReducer,
-
 
     auth: authReducer,
     user: userReducer,
+    forgotPassword: forgotPasswordReducer,
 
     cart: cartReducer,
 
     newOrder: newOrderReducer,
     myOrders: myOrdersReducer,
     orderDetails: orderDetailsReducer,
+    order: orderReducer,
 })
 
 const userLoginFromStorage = localStorage.getItem('userLogin') ? JSON.parse(localStorage.getItem('userLogin')) : null
-const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
+const cartItemsFromStorage = userLoginFromStorage ? JSON.parse(localStorage.getItem(userLoginFromStorage.user._id)) : []
 const shippingInfoFromStorage = localStorage.getItem('shippingInfo') ? JSON.parse(localStorage.getItem('shippingInfo')) : {}
 
 const initialState = {

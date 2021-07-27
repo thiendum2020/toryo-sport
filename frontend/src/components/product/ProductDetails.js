@@ -11,7 +11,7 @@ import { getProductDetails, clearErrors, newReview } from '../../actions/product
 import { addItemToCart } from '../../actions/cartActions'
 import { NEW_REVIEW_RESET } from '../../constants/productConstants'
 
-const ProductDetails = ({ match }) => {
+const ProductDetails = ({ match, history }) => {
     const [quantity, setQuantity] = useState(1)
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState('')
@@ -20,6 +20,7 @@ const ProductDetails = ({ match }) => {
     const { loading, error, product } = useSelector(state => state.productDetails)
     const { error: reviewError, success } = useSelector(state => state.newReview)
     const { userLogin } = useSelector(state => state.auth)
+    const uid = userLogin ? userLogin._id : null
 
     useEffect(() => {
         dispatch(getProductDetails(match.params.id))
@@ -62,8 +63,15 @@ const ProductDetails = ({ match }) => {
     }
 
     const addToCart = () => {
-        dispatch(addItemToCart(match.params.id, quantity));
-        alert.success('Item Added to Cart')
+
+
+        if (uid) {
+            dispatch(addItemToCart(match.params.id, quantity, uid))
+            alert.success('Item Added to Cart')
+        }
+        else {
+            history.push('/login')
+        }
     }
 
     function setUserRatings() {
@@ -164,8 +172,9 @@ const ProductDetails = ({ match }) => {
                                                 <span>Status: </span>
                                                 <p className={product.stock > 0 ? 'greenColor' : 'redColor'} >{product.stock > 0 ? 'In Stock' : 'Out of Stock'}</p>
                                             </div>
-                                            <div className="product-details-descriptions">
-                                                <p>{product.description}</p>
+                                            <div className="product-details-info">
+                                                <span>Sold: </span>
+                                                <p>{product.sold}</p>
                                             </div>
                                             <div className="product-details-info">
                                                 <h3>${product.price}</h3>
@@ -221,13 +230,25 @@ const ProductDetails = ({ match }) => {
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
+                                <h4>Descriptions:</h4>
+                                <p className="product-description">{product.description}</p>
+
                                 <div className="product-list-reviews">
-                                    {product.reviews && product.reviews.length > 0 && (
-                                        <ListReviews reviews={product.reviews} />
-                                    )}
+                                    <div class="reviews w-50">
+                                        <h4>Other's Reviews:</h4>
+                                        <hr />
+                                        {
+                                            product.reviews && product.reviews.length > 0 ? (
+                                                <ListReviews reviews={product.reviews} />
+                                            ) : (
+                                                <h5>No reviews</h5>
+                                            )
+                                        }
+
+                                    </div>
+
                                 </div>
                             </div>
                         </section>

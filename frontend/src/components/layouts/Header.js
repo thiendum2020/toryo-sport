@@ -11,7 +11,6 @@ const Header = () => {
     const alert = useAlert()
     const { userLogin } = useSelector(state => state.auth)
     const { cartItems } = useSelector(state => state.cart)
-
     const logoutHandler = () => {
         dispatch(logout())
         dispatch({ type: CART_RESET })
@@ -91,7 +90,7 @@ const Header = () => {
                                                         <li><Link to="/dashboard">Dashboard</Link></li>
                                                     )}
                                                     <li><Link to="/profile">Profile</Link></li>
-                                                    <li><Link to="/orders/me">Order</Link></li>
+                                                    <li><Link to="/profile/orders">Order</Link></li>
                                                     <li><Link to="/" onClick={logoutHandler}>Logout</Link></li>
                                                 </ul>
                                             </>

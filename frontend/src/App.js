@@ -18,6 +18,7 @@ import Login from './components/user/Login'
 import Register from './components/user/Register'
 import Profile from './components/user/Profile'
 import UpdatePassword from './components/user/UpdatePassword'
+import ForgotPassword from './components/user/ForgotPassword'
 
 //Cart
 import Cart from './components/cart/Cart'
@@ -53,9 +54,11 @@ function App() {
 
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
+            <Route path="/password/forgot" component={ForgotPassword} exact />
+
             <ProtectedRoute path="/profile" component={Profile} exact />
-            <ProtectedRoute path="/orders/me" component={MyListOrders} exact />
-            <ProtectedRoute path="/order/:id" component={OrderDetails} exact />
+            <ProtectedRoute path="/profile/orders" component={MyListOrders} exact />
+            <ProtectedRoute path="/profile/order/:id" component={OrderDetails} exact />
             <ProtectedRoute path="/profile/password/update" component={UpdatePassword} exact />
 
             <Footer />

@@ -7,6 +7,8 @@ import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { updatePassword, clearErrors } from '../../actions/userActions'
 import { UPDATE_PASSWORD_RESET } from '../../constants/userConstants'
+import { logout } from '../../actions/userActions'
+import { CART_RESET } from '../../constants/cartConstants'
 
 const UpdatePassword = ({ history }) => {
 
@@ -39,8 +41,8 @@ const UpdatePassword = ({ history }) => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-
         dispatch(updatePassword(oldPassword, password))
+        dispatch(logout())
     }
 
     return (

@@ -14,6 +14,7 @@ import {
     LOGOUT_SUCCESS, LOGOUT_FAIL,
     CLEAR_ERRORS
 } from '../constants/userConstants'
+import { CART_IMPORT } from '../constants/cartConstants'
 
 // Login
 export const login = (email, password) => async (dispatch) => {
@@ -32,6 +33,11 @@ export const login = (email, password) => async (dispatch) => {
         dispatch({
             type: LOGIN_SUCCESS,
             payload: data.user
+        })
+
+        dispatch({
+            type: CART_IMPORT,
+            payload: JSON.parse(localStorage.getItem(data.user._id))
         })
         localStorage.setItem('userLogin', JSON.stringify(data))
 
@@ -209,7 +215,6 @@ export const logout = () => async (dispatch) => {
             type: LOGOUT_SUCCESS,
         })
         localStorage.removeItem('userLogin')
-        localStorage.removeItem('cartItems')
     } catch (error) {
         dispatch({
             type: LOGOUT_FAIL,

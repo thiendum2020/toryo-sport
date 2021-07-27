@@ -89,7 +89,7 @@ const ConfirmOrder = ({ history }) => {
                                 <h5>Total: <span className="order-summary-values">${totalPrice}</span></h5>
 
                                 <hr />
-                                <button id="checkout_btn" className="btn btn-order-summary" onClick={processToPayment}>Proceed to Payment</button>
+                                <button id="checkout_btn" className="btn btn-block btn-order-summary" onClick={processToPayment}>Proceed to Payment</button>
                             </div>
                         </div>
 

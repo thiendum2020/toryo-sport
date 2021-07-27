@@ -2,9 +2,7 @@ import React from 'react'
 
 const ListReviews = ({ reviews }) => {
     return (
-        <div class="reviews w-50">
-            <h4>Other's Reviews:</h4>
-            <hr />
+        <>
             {reviews && reviews.map(review => (
                 <div key={review._id} class="review-card my-3">
                     <div class="rating-outer">
@@ -16,7 +14,7 @@ const ListReviews = ({ reviews }) => {
                     <hr />
                 </div>
             ))}
-        </div>
+        </>
     )
 }
 

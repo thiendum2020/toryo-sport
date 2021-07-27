@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { MDBDataTableV5 } from 'mdbreact'
-
+import NumberFormat from 'react-number-format'
 import MetaData from '../layouts/MetaData'
 import Loader from '../layouts/Loader'
 
@@ -34,8 +34,8 @@ const MyListOrders = () => {
                     sort: 'asc'
                 },
                 {
-                    label: 'Num of Items',
-                    field: 'numOfItems',
+                    label: 'Created At',
+                    field: 'createdAt',
                     sort: 'asc'
                 },
                 {
@@ -60,13 +60,17 @@ const MyListOrders = () => {
         orders.forEach(order => {
             data.rows.push({
                 id: order._id,
-                numOfItems: order.orderItems.length,
-                amount: `$${order.totalPrice}`,
-                status: order.orderStatus && String(order.orderStatus).includes('Delivered')
-                    ? <p style={{ color: 'green' }}>{order.orderStatus}</p>
-                    : <p style={{ color: 'red' }}>{order.orderStatus}</p>,
+                createdAt: String(order.createAt).substring(0, 10),
+                amount: [<NumberFormat value={order.totalPrice} displayType={'text'} thousandSeparator={true} prefix={'$'} ></NumberFormat>],
+                status: order.orderStatus && String(order.orderStatus).includes('Delivering')
+                    ? <p style={{ color: 'blue' }}>{order.orderStatus}</p>
+                    : order.orderStatus && String(order.orderStatus).includes('Cancelled')
+                        ? <p style={{ color: 'red' }}>{order.orderStatus}</p>
+                        : order.orderStatus && String(order.orderStatus).includes('Received')
+                            ? <p style={{ color: 'green' }}>{order.orderStatus}</p>
+                            : <p style={{ color: 'orange' }}>{order.orderStatus}</p>,
                 actions:
-                    <Link to={`/order/${order._id}`} className="btn-order-details">
+                    <Link to={`/profile/order/${order._id}`} className="btn-order-details">
                         <i className="fa fa-eye"></i>
                     </Link>
             })
@@ -93,7 +97,7 @@ const MyListOrders = () => {
                                 loading ? <Loader /> : (
                                     orders.length === 0 ? (
                                         <>
-                                            <h4 style={{ marginTop: '60px' }}>Orders is empty</h4>
+                                            <h4 style={{ margin: '60px 0 300px' }}>Orders is empty</h4>
                                         </>
                                     ) : (
                                         <MDBDataTableV5

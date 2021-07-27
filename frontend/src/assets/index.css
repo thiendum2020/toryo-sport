@@ -757,9 +757,7 @@ footer ul li {
 /* Loader */
 .loader {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5%;
+    margin: auto;
     width: 80px;
     height: 80px;
     padding-left: 0;
@@ -963,6 +961,10 @@ footer ul li {
     font-size: 18px;
     display: flex;
 }
+.product-details-info .sold {
+    margin-left: 60px;
+    color: #333;
+}
 .product-details-info span {
     font-weight: 600;
     color: gray;
@@ -971,11 +973,14 @@ footer ul li {
 .product-details-info a,
 .product-details-info p {
     font-weight: 600;
-}
-.product-details-descriptions p {
-    font-size: 20px;
+    margin-bottom: 0;
 }
 
+.product-description {
+    font-size: 20px;
+    color: #555;
+    margin-bottom: 50px;
+}
 .product-details-info h3 {
     font-size: 28px;
     font-weight: 600;
@@ -986,6 +991,15 @@ footer ul li {
 }
 .redColor {
     color: red;
+}
+.blueColor {
+    color: rgb(26, 72, 199);
+}
+.yellowColor {
+    color: rgb(238, 153, 25);
+}
+.grayColor {
+    color: gray;
 }
 .product-quantity-wrapper {
     display: flex;
@@ -1212,7 +1226,6 @@ footer ul li {
     font-weight: bold;
     color: #555;
     cursor: pointer;
-    width: 80px;
 }
 .account-form form label {
     font-size: 18px;
@@ -1637,22 +1650,21 @@ td img {
 .order-confirm .cart-item a:hover {
     color: #555;
 }
-.order-confirm #order_summary {
+#order_summary {
     border: 1px solid #e3e3e3;
     border-radius: 10px;
     padding: 20px 16px;
 }
-.order-confirm .order-summary-values {
+#order_summary .order-summary-values {
     float: right;
     font-weight: bold;
 }
-.order-confirm .btn-order-summary {
-    border-color: #fa9c23;
+#order_summary .btn-order-summary {
     color: black;
     margin-top: 20px;
-    width: 100%;
+    transition: all 0.3s;
 }
-.order-confirm .btn-order-summary:hover {
+#order_summary .btn-order-summary:hover {
     background-color: #fa9c23;
     color: #f2f0f1;
 }
@@ -1666,9 +1678,9 @@ td img {
 }
 
 .payment-method form .btn {
-    border-color: #fa9c23;
     color: black;
     margin-top: 20px;
+    transition: all 0.3s;
 }
 .payment-method form .btn:hover {
     background-color: #fa9c23;
@@ -1778,10 +1790,28 @@ td img {
 }
 .btn-update:hover {
     background-color: #4c4c43;
-    color: #f2f0f1;
+    color: #fff;
 }
 .user-avatar p {
     font-size: 14px;
     opacity: 0.8;
     text-align: center;
+}
+#order_summary .btn-order-cancel {
+    color: black;
+    margin-top: 20px;
+    transition: all 0.3s;
+}
+#order_summary .btn-order-cancel:hover {
+    background-color: #df3f23;
+    color: #fff;
+}
+#order_summary .btn-order-receive {
+    color: black;
+    margin-top: 20px;
+    transition: all 0.3s;
+}
+#order_summary .btn-order-receive:hover {
+    background-color: #228b34;
+    color: #fff;
 }

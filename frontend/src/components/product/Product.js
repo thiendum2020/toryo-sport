@@ -1,14 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useAlert } from 'react-alert'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addItemToCart } from '../../actions/cartActions'
-const Product = ({ product, col }) => {
+const Product = ({ product, col, history }) => {
     const dispatch = useDispatch()
+    const { userLogin } = useSelector(state => state.auth)
     const alert = useAlert()
+    const uid = userLogin ? userLogin._id : null
     const addToCart = () => {
-        dispatch(addItemToCart(product._id, 1));
-        alert.success('Item Added to Cart')
+        if (uid) {
+            dispatch(addItemToCart(product._id, 1, uid))
+            alert.success('Item Added to Cart')
+        }
+        else {
+            history.push('/login')
+        }
     }
 
     return (
@@ -30,7 +37,11 @@ const Product = ({ product, col }) => {
                 </div>
                 <span id="no_of_reviews">({product.numOfReviews} Reviews)</span>
             </div>
-            <p>${product.price}</p>
+            <div className="d-flex" style={{ justifyContent: 'space-between' }}>
+                <p>${product.price}</p>
+                <span>Sold: {product.sold}</span>
+            </div>
+
         </div>
     )
 }
