@@ -179,16 +179,21 @@ const ProductDetails = ({ match, history }) => {
                                             <div className="product-details-info">
                                                 <h3>${product.price}</h3>
                                             </div>
-                                            <div className="product-quantity-wrapper">
-                                                <span className="product-quantity-btn" onClick={decreaseQty}>
-                                                    <i className="bx bx-minus"></i>
-                                                </span>
-                                                <input type="number" className="product-quantity" value={quantity} readOnly />
-                                                <span className="product-quantity-btn" onClick={increaseQty}>
-                                                    <i className="bx bx-plus"></i>
-                                                </span>
-                                                <button type="button" className="btn-cart" disabled={product.stock === 0} onClick={addToCart}>Add to cart</button>
-                                            </div>
+                                            {
+                                                product.stock > 0 ? (
+                                                    <div className="product-quantity-wrapper">
+                                                        <span className="product-quantity-btn" onClick={decreaseQty}>
+                                                            <i className="bx bx-minus"></i>
+                                                        </span>
+                                                        <input type="number" className="product-quantity" value={quantity} readOnly />
+                                                        <span className="product-quantity-btn" onClick={increaseQty}>
+                                                            <i className="bx bx-plus"></i>
+                                                        </span>
+                                                        <button type="button" className="btn-cart" disabled={product.stock === 0} onClick={addToCart}>Add to cart</button>
+                                                    </div>
+                                                ) : null
+                                            }
+
 
                                             <div className="row">
                                                 <div className="rating w-50">

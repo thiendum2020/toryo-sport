@@ -9,15 +9,15 @@ const crypto = require('crypto')
 //Register a user   POST/api/register
 exports.register = catchAsyncErrors(async (req, res, next) => {
 
-    const { name, email, password } = req.body
+    const { name, email, password, avatar } = req.body
 
     const user = await User.create({
         name,
         email,
         password,
         avatar: {
-            public_id: 'h0vmev2tvtpjykntr0tk',
-            url: 'https://res.cloudinary.com/toryobuyall/image/upload/v1624286546/test/h0vmev2tvtpjykntr0tk.jpg'
+            public_id: avatar ? avatar.public_id : 'h0vmev2tvtpjykntr0tk',
+            url: avatar ? avatar.url : 'https://res.cloudinary.com/toryobuyall/image/upload/v1624286546/test/h0vmev2tvtpjykntr0tk.jpg'
         }
     })
 
@@ -187,7 +187,7 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
 
 //Get all users     GET/api/admin/users
 exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
-    const users = await User.find()
+    const users = await User.find().sort('-createdAt')
 
     res.status(200).json({
         success: true,

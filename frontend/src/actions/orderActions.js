@@ -13,9 +13,6 @@ import {
     UPDATE_ORDER_SUCCESS,
     UPDATE_ORDER_REQUEST,
     UPDATE_ORDER_FAIL,
-    CANCEL_ORDER_REQUEST,
-    CANCEL_ORDER_SUCCESS,
-    CANCEL_ORDER_FAIL,
     DELETE_ORDER_REQUEST,
     DELETE_ORDER_SUCCESS,
     DELETE_ORDER_FAIL,
@@ -24,6 +21,12 @@ import {
     ORDER_DETAILS_FAIL,
     CLEAR_ERRORS
 } from '../constants/orderConstants'
+import {
+    UNDO_STOCK_PRODUCT_REQUEST,
+    UNDO_STOCK_PRODUCT_SUCCESS,
+    UNDO_STOCK_PRODUCT_FAIL,
+
+} from '../constants/productConstants'
 
 export const createOrder = (order) => async (dispatch, getState) => {
     try {
@@ -41,8 +44,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
             type: CREATE_ORDER_SUCCESS,
             payload: data
         })
-        localStorage.removeItem('cartItems')
-
+        localStorage.removeItem(data.order.user)
 
     } catch (error) {
         dispatch({
@@ -169,6 +171,34 @@ export const updateStatusOrder = (id, status) => async (dispatch) => {
     }
 }
 
+// update order by user
+export const undoStockProduct = (productId, stock) => async (dispatch) => {
+    try {
+
+        dispatch({ type: UNDO_STOCK_PRODUCT_REQUEST })
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const { data } = await axios.put(`/api/product/${productId}`)
+        const sold = data.product.sold - stock
+        stock = data.product.stock + stock
+        await axios.put(`/api/product/${productId}`, { stock, sold }, config)
+
+        dispatch({
+            type: UNDO_STOCK_PRODUCT_SUCCESS,
+            payload: 'success'
+        })
+
+    } catch (error) {
+        dispatch({
+            type: UNDO_STOCK_PRODUCT_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
 // Delete order
 export const deleteOrder = (id) => async (dispatch) => {
     try {

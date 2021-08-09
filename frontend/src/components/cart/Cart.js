@@ -14,7 +14,7 @@ const Cart = ({ history }) => {
     const increaseQty = (id, quantity, stock) => {
         const newQty = quantity + 1;
 
-        if (newQty > stock) return;
+        if (newQty > stock) return
 
         dispatch(updateItemToCart(id, newQty, uid))
     }
@@ -23,7 +23,7 @@ const Cart = ({ history }) => {
 
         const newQty = quantity - 1;
 
-        if (newQty <= 0) return;
+        if (newQty <= 0) return
 
         dispatch(updateItemToCart(id, newQty, uid))
 

@@ -7,7 +7,7 @@ import MenuProfile from '../user/MenuProfile'
 
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
-import { getOrderDetails, updateStatusOrder, clearErrors } from '../../actions/orderActions'
+import { getOrderDetails, updateStatusOrder, undoStockProduct, clearErrors } from '../../actions/orderActions'
 import { UPDATE_ORDER_RESET } from '../../constants/orderConstants'
 import swal from 'sweetalert'
 
@@ -36,8 +36,15 @@ const OrderDetails = ({ match }) => {
     const shippingDetails = shippingInfo && `${shippingInfo.address}, ${shippingInfo.city}`
     const isCancel = orderStatus && orderStatus === 'Processing' ? true : false
     const isReceive = orderStatus && orderStatus === 'Delivering' ? true : false
-    console.log(orderStatus)
+
     const cancelOrder = () => {
+
+        for (let i = 0; i < orderItems.length; i++) {
+            let productId = orderItems[i].product
+            let stock = orderItems[i].quantity
+            dispatch(undoStockProduct(productId, stock))
+        }
+
         let status = {
             orderStatus: 'Cancelled'
         }
@@ -113,7 +120,7 @@ const OrderDetails = ({ match }) => {
                                                     {orderItems && orderItems.map(item => (
                                                         <div key={item.product} className="row my-5">
                                                             <div className="col-4 col-lg-2">
-                                                                <img src={item.image} alt={item.name} height="45" width="65" />
+                                                                <img src={item.image} alt={item.name} height="50" width="50" />
                                                             </div>
 
                                                             <div className="col-5 col-lg-5">

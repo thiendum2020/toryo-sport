@@ -57,10 +57,10 @@ const MyListOrders = () => {
             rows: []
         }
 
-        orders.forEach(order => {
+        orders && orders.forEach(order => {
             data.rows.push({
                 id: order._id,
-                createdAt: String(order.createAt).substring(0, 10),
+                createdAt: String(order.createdAt).substring(0, 10),
                 amount: [<NumberFormat value={order.totalPrice} displayType={'text'} thousandSeparator={true} prefix={'$'} ></NumberFormat>],
                 status: order.orderStatus && String(order.orderStatus).includes('Delivering')
                     ? <p style={{ color: 'blue' }}>{order.orderStatus}</p>
@@ -95,7 +95,7 @@ const MyListOrders = () => {
 
                             {
                                 loading ? <Loader /> : (
-                                    orders.length === 0 ? (
+                                    orders && orders.length === 0 ? (
                                         <>
                                             <h4 style={{ margin: '60px 0 300px' }}>Orders is empty</h4>
                                         </>

@@ -6,6 +6,7 @@ const cors = require('cors')
 const fileUpload = require('express-fileupload')
 const path = require('path')
 const bodyParser = require('body-parser')
+const session = require('express-session')
 
 // Setting up config file 
 if (process.env.NODE_ENV !== 'PRODUCTION') require('dotenv').config({ path: 'backend/config/config.env' })
@@ -39,5 +40,6 @@ if (process.env.NODE_ENV === 'PRODUCTION') {
 
 //Middleware to handle error
 app.use(errorMiddleware)
+
 
 module.exports = app

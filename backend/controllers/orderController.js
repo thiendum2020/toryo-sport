@@ -28,6 +28,9 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
     if (order.paymentInfo.name !== 'Ship COD') {
         order.paidAt = Date.now()
     }
+    order.orderItems.forEach(async item => {
+        await updateStock(item.product, item.quantity)
+    })
     await order.save()
     res.status(201).json({
         success: true,
@@ -52,7 +55,7 @@ exports.getSingleOrder = catchAsyncErrors(async (req, res, next) => {
 
 //Get logged in user orders    GET/api/orders/me
 exports.getMyOrders = catchAsyncErrors(async (req, res, next) => {
-    const orders = await Order.find({ user: req.user.id })
+    const orders = await Order.find({ user: req.user.id }).sort('-createdAt')
 
     res.status(200).json({
         success: true,
@@ -63,15 +66,14 @@ exports.getMyOrders = catchAsyncErrors(async (req, res, next) => {
 
 //Get all order by admin    GET/api/admin/orders
 exports.getAllOrdersByAdmin = catchAsyncErrors(async (req, res, next) => {
-    const orders = await Order.find()
+    const orders = await Order.find().sort('-createdAt')
     let totalAmount = 0
     orders.forEach(order => {
-        totalAmount += order.totalPrices
+        totalAmount += order.totalPrice
     })
-
     res.status(200).json({
         success: true,
-        total: totalAmount,
+        totalAmount: totalAmount,
         count: orders.length,
         orders
     })
@@ -85,9 +87,6 @@ exports.updateOrdersByAdmin = catchAsyncErrors(async (req, res, next) => {
     if (order.orderStatus === 'Delivering') {
         return next(new ErrorHandler('You have already delivered this order', 400))
     }
-    order.orderItems.forEach(async item => {
-        await updateStock(item.product, item.quantity)
-    })
 
     order.orderStatus = req.body.orderStatus
     order.deliveredAt = Date.now()

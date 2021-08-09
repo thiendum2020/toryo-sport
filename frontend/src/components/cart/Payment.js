@@ -63,7 +63,7 @@ const Payment = ({ history }) => {
                             icon: "success",
                         })
                         dispatch({ type: CART_RESET })
-                        history.push('/profile/orders')
+                        history.push('/')
 
                     } catch (error) {
                         document.querySelector('#pay_btn').disabled = false

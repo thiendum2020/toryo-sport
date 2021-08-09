@@ -73,6 +73,53 @@ li {
     display: none;
 }
 
+.text-center {
+    text-align: center !important;
+}
+/*--------------------------------------------------------------
+# 404
+--------------------------------------------------------------*/
+.error {
+    color: #5a5c69;
+    font-size: 100px;
+    position: relative;
+    line-height: 1;
+    margin-top: 100px;
+}
+.error:before {
+    content: attr(data-text);
+    position: absolute;
+    left: -2px;
+    text-shadow: 1px 0 #4e73df;
+    top: 0;
+    color: #5a5c69;
+    background: #f8f9fc;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+    animation: noise-anim-2 3s infinite linear alternate-reverse;
+}
+.error:after {
+    content: attr(data-text);
+    position: absolute;
+    left: 2px;
+    text-shadow: -1px 0 #e74a3b;
+    top: 0;
+    color: #5a5c69;
+    background: #f8f9fc;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+    animation: noise-anim 2s infinite linear alternate-reverse;
+}
+.text-gray-800 {
+    color: #5a5c69 !important;
+}
+.lead {
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+.text-gray-500 {
+    color: #b7b9cc !important;
+}
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
@@ -1814,4 +1861,256 @@ td img {
 #order_summary .btn-order-receive:hover {
     background-color: #228b34;
     color: #fff;
+}
+/*--------------------------------------------------------------
+# ADMIN
+--------------------------------------------------------------*/
+#admin-header {
+    font-family: Nunito, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
+        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+/* Admin Sidebar */
+
+.sidebar-wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+    min-height: 100vh;
+    font-weight: normal;
+
+    margin-top: 0;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 10;
+}
+#sidebar {
+    min-width: 100%;
+    max-width: 100%;
+    background: #232f3e;
+    color: #fff;
+    transition: all 0.3s;
+}
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #232f3e;
+}
+#sidebar ul.components {
+    border-bottom: 1px solid #232f3e;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+    color: white;
+    text-decoration: none;
+}
+#sidebar ul li a:hover {
+    color: #232f3e;
+    background: #fff;
+}
+
+#sidebar ul li a i {
+    margin-right: 0.3rem;
+}
+
+/* #sidebar ul li.active > a,
+a[aria-expanded='true'] {
+    color: #fff;
+    background: #232f3e;
+} */
+a[data-toggle='collapse'] {
+    position: relative;
+}
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+ul.CTAs {
+    padding: 20px;
+}
+
+ul.CTAs a {
+    text-align: center;
+    font-size: 0.9em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+/* Products List Admin */
+#products_table .btn {
+    padding: 0.2rem 0.5rem;
+    margin-left: 0.4rem;
+}
+
+/* Dashboard */
+
+.card-font-size {
+    font-size: 1.5rem;
+}
+
+/* Reviews */
+
+.rating {
+    margin-top: 10rem;
+}
+
+.stars {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    padding-left: 0;
+}
+
+.star {
+    display: inline;
+    list-style: none;
+    font-size: 3rem;
+    padding-left: 0.9rem;
+    color: #e3e3e3;
+}
+
+.star:first-child {
+    padding-left: 0;
+}
+
+.orange {
+    color: #fa9c23;
+}
+
+.yellow {
+    color: #fdcc0d;
+}
+
+.review_user {
+    font-size: 0.8rem;
+    color: grey;
+}
+
+/* Admin header*/
+.admin-header {
+    margin: 24px 0px;
+}
+.admin-header h3 {
+    line-height: 2;
+    margin-bottom: 0;
+}
+.sidebar-brand {
+    height: 4.375rem;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 800;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    z-index: 1;
+}
+.rotate-n-15 {
+    transform: rotate(-15deg);
+}
+.sidebar-brand-icon i {
+    font-size: 40px;
+}
+.sidebar-brand span {
+    font-size: 20px;
+}
+
+#admin-header .nav-item .nav-link {
+    height: 4.375rem;
+    display: flex;
+    align-items: center;
+    padding: 0 0.75rem;
+}
+#admin-header .nav-item .nav-link .img-profile {
+    height: 2rem;
+    width: 2rem;
+}
+.dropdown-toggle::after {
+    display: none;
+}
+#admin-header .dropdown-menu {
+    width: auto;
+}
+#userDropdown span {
+    font-size: 16px;
+}
+.dropdown-menu {
+    left: -57px;
+}
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #3a3b45;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+    font-size: 14px;
+}
+.animated--grow-in,
+.sidebar .nav-item .collapse {
+    -webkit-animation-name: growIn;
+    animation-name: growIn;
+    -webkit-animation-duration: 0.2s;
+    animation-duration: 0.2s;
+    -webkit-animation-timing-function: transform
+            cubic-bezier(0.18, 1.25, 0.4, 1),
+        opacity cubic-bezier(0, 1, 0.4, 1);
+    animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1),
+        opacity cubic-bezier(0, 1, 0.4, 1);
+}
+
+.border-left-primary {
+    border-left: 0.25rem solid #4e73df !important;
+}
+.border-left-success {
+    border-left: 0.25rem solid #1cc88a !important;
+}
+.border-left-info {
+    border-left: 0.25rem solid #36b9cc !important;
+}
+.border-left-warning {
+    border-left: 0.25rem solid #f6c23e !important;
+}
+
+/* Admin Users*/
+.users-list-header {
+    padding-left: 10px;
+    padding-right: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.users-list-header h3 {
+    line-height: 1;
+    margin-bottom: 0;
+}
+.btn-new-user {
+    margin-top: 0;
+}
+.icon {
+    padding: 0 5px;
+    cursor: pointer;
+    line-height: 1;
+}
+.icon-edit {
+    color: rgb(20, 104, 201);
+}
+.icon-delete {
+    color: rgb(201, 20, 35);
 }

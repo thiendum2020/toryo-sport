@@ -1,8 +1,12 @@
 import React, { Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
-const Footer = () => {
-    return (
+const Footer = ({ location }) => {
+    return location.pathname.split('/')[1] === 'admin' ? (
+        <>
+
+        </>
+    ) : (
         <Fragment>
             {/* footer */}
             <div className="bg-gray">
@@ -51,4 +55,4 @@ const Footer = () => {
     )
 }
 
-export default Footer
+export default withRouter(Footer)

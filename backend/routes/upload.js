@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const cloudinary = require('cloudinary')
-const { isAuthenticatedUser, authorizeRoles } = require('../middleware/auth')
 const fs = require('fs')
 
 
