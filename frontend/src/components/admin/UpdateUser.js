@@ -77,7 +77,7 @@ const UpdateUser = ({ history, match }) => {
                         <h3>Update User: #{userId}</h3>
                     </div>
                     <div className="row admin-update-user">
-                        <div className="col-10 col-lg-5">
+                        <div className="col-5 col-lg-5">
                             <form className="" onSubmit={submitHandler}>
                                 <div className="form-group">
                                     <label htmlFor="name_field">Name</label>
@@ -121,7 +121,7 @@ const UpdateUser = ({ history, match }) => {
                                 <button type="submit" className="btn btn-update btn-block">Update</button>
                             </form>
                         </div>
-                        <div className="col-10 col-lg-6">
+                        <div className="col-6 col-lg-6">
 
                         </div>
                     </div>

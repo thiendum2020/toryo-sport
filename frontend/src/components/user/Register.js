@@ -41,8 +41,6 @@ const Register = ({ history }) => {
     }
 
     const onChangeAvatar = async e => {
-
-
         const file = e.target.files[0]
         if (!file) {
             return alert.error('File not exist!')
@@ -54,7 +52,7 @@ const Register = ({ history }) => {
             return alert.error('File too large!')
         }
 
-        const reader = new FileReader();
+        const reader = new FileReader()
         reader.onload = () => {
             if (reader.readyState === 2) {
                 setAvatarPreview(reader.result)

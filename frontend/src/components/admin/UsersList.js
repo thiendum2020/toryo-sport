@@ -105,7 +105,6 @@ const UsersList = ({ history }) => {
                     <Fragment>
                         <div className="users-list-header my-4">
                             <h3>All Users (Total: {users.length})</h3>
-                            <Link to='/admin/users/new' className="btn btn-new-user">Add New User</Link>
                         </div>
 
                         {loading ? <Loader /> : (

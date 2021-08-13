@@ -98,7 +98,7 @@ const ProductsList = ({ history }) => {
     return (
         <Fragment>
             <MetaData title={'Admin - All Products'} />
-            <div className="row">
+            <div className="row admin-products">
                 <div className="col-12 col-md-2">
                     <Sidebar />
                 </div>

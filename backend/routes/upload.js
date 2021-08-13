@@ -19,7 +19,7 @@ router.post('/upload', (req, res) => {
             removeTmp(file.tempFilePath)
             return res.status(400).json({ msg: "File format is incorrect!" })
         }
-        cloudinary.v2.uploader.upload(file.tempFilePath, { folder: "avatar" }, async (err, result) => {
+        cloudinary.v2.uploader.upload(file.tempFilePath, { folder: "sport" }, async (err, result) => {
             if (err) throw err
             removeTmp(file.tempFilePath)
             res.json({ public_id: result.public_id, url: result.url })

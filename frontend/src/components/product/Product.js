@@ -22,7 +22,7 @@ const Product = ({ product, col, history }) => {
         <div className={`col-${col} product-item`}>
             <div className="product-img">
                 <a href={`/product/${product._id}`}>
-                    <img src={product.image[0].url} alt={product.name} />
+                    <img src={product.images[0].url} alt={product.name} />
                 </a>
                 <div className="product-action">
                     <i className='bx bxs-cart-add' onClick={addToCart}></i>

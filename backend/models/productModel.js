@@ -19,7 +19,7 @@ const productSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    image: [
+    images: [
         {
             public_id: {
                 type: String,
@@ -49,16 +49,11 @@ const productSchema = new mongoose.Schema({
         required: true,
         enum: {
             values: [
-                'adidas',
+                'Adidas',
                 'Nike',
                 'Puma',
             ]
         }
-    },
-    seller: {
-        type: String,
-        required: true,
-        default: 'Shopee'
     },
     stock: {
         type: Number,

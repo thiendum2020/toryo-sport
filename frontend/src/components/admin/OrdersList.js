@@ -96,7 +96,7 @@ const OrdersList = ({ history }) => {
     return (
         <Fragment>
             <MetaData title={'All Orders'} />
-            <div className="row">
+            <div className="row admin-orders">
                 <div className="col-12 col-md-2">
                     <Sidebar />
                 </div>

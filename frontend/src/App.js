@@ -81,7 +81,7 @@ function App() {
                 <ProtectedRoute path="/admin/users" isAdmin={true} component={UsersList} exact />
                 <ProtectedRoute path="/admin/user/:id" isAdmin={true} component={UpdateUser} exact />
                 <ProtectedRoute path="/admin/products" isAdmin={true} component={ProductsList} exact />
-                <ProtectedRoute path="/admin/product" isAdmin={true} component={NewProduct} exact />
+                <ProtectedRoute path="/admin/products/new" isAdmin={true} component={NewProduct} exact />
                 <ProtectedRoute path="/admin/product/:id" isAdmin={true} component={UpdateProduct} exact />
                 <ProtectedRoute path="/admin/orders" isAdmin={true} component={OrdersList} exact />
                 <ProtectedRoute path="/admin/order/:id" isAdmin={true} component={ProcessOrder} exact />

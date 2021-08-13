@@ -138,7 +138,7 @@ const ProductDetails = ({ match, history }) => {
                                     <div className="row">
                                         <div className="col-5">
                                             <Carousel pause='hover'>
-                                                {product.image && product.image.map(image => (
+                                                {product.images && product.images.map(image => (
                                                     <Carousel.Item key={image.public_id}>
                                                         <img className="d-block w-100" src={image.url} alt={product.title} />
                                                     </Carousel.Item>

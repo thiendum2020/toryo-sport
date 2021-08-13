@@ -206,7 +206,7 @@ export const getAdminProducts = () => async (dispatch) => {
 }
 
 // New product (Admin)
-export const newProduct = (productData) => async (dispatch) => {
+export const newProduct = (name, price, stock, description, category, brand, images) => async (dispatch) => {
     try {
 
         dispatch({ type: NEW_PRODUCT_REQUEST })
@@ -216,8 +216,8 @@ export const newProduct = (productData) => async (dispatch) => {
                 'Content-Type': 'application/json'
             }
         }
-
-        const { data } = await axios.post(`/api/admin/product/new`, productData, config)
+        console.log(images)
+        const { data } = await axios.post(`/api/admin/product/new`, { name, price, stock, description, category, brand, images }, config)
 
         dispatch({
             type: NEW_PRODUCT_SUCCESS,
