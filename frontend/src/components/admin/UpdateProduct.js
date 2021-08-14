@@ -9,19 +9,6 @@ import { updateProduct, getProductDetails, clearErrors } from '../../actions/pro
 import { UPDATE_PRODUCT_RESET, PRODUCT_DETAILS_RESET } from '../../constants/productConstants'
 
 const UpdateProduct = ({ match, history }) => {
-
-    const [name, setName] = useState('')
-    const [price, setPrice] = useState(0)
-    const [description, setDescription] = useState('')
-    const [category, setCategory] = useState('')
-    const [brand, setBrand] = useState('')
-    const [stock, setStock] = useState(0)
-    const [seller, setSeller] = useState('')
-    const [images, setImages] = useState([])
-
-    const [oldImages, setOldImages] = useState([])
-    const [imagesPreview, setImagesPreview] = useState([])
-
     const categories = [
         'Balls',
         'Clothing',
@@ -33,6 +20,18 @@ const UpdateProduct = ({ match, history }) => {
         'Nike',
         'Puma'
     ]
+    const [name, setName] = useState('')
+    const [price, setPrice] = useState(0)
+    const [description, setDescription] = useState('')
+    const [category, setCategory] = useState('')
+    const [brand, setBrand] = useState('')
+    const [stock, setStock] = useState(0)
+    const [images, setImages] = useState([])
+
+    const [oldImages, setOldImages] = useState([])
+    const [imagesPreview, setImagesPreview] = useState([])
+
+
 
     const alert = useAlert()
     const dispatch = useDispatch()
@@ -43,15 +42,13 @@ const UpdateProduct = ({ match, history }) => {
     const productId = match.params.id
 
     useEffect(() => {
-
-        if (!product) {
+        if (!product || product._id !== productId) {
             dispatch(getProductDetails(productId))
         } else {
             setName(product.name)
             setPrice(product.price)
             setDescription(product.description)
             setCategory(product.category)
-            setSeller(product.seller)
             setStock(product.stock)
             setOldImages(product.images)
         }
@@ -68,8 +65,8 @@ const UpdateProduct = ({ match, history }) => {
 
 
         if (isUpdated) {
-            history.push('/admin/products')
             alert.success('Product updated successfully')
+            history.push('/admin/products')
             dispatch({ type: UPDATE_PRODUCT_RESET })
             dispatch({ type: PRODUCT_DETAILS_RESET })
         }
@@ -78,15 +75,14 @@ const UpdateProduct = ({ match, history }) => {
 
 
     const submitHandler = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        const formData = new FormData();
-        formData.set('name', name);
-        formData.set('price', price);
-        formData.set('description', description);
-        formData.set('category', category);
-        formData.set('stock', stock);
-        formData.set('seller', seller);
+        const formData = new FormData()
+        formData.set('name', name)
+        formData.set('price', price)
+        formData.set('description', description)
+        formData.set('category', category)
+        formData.set('stock', stock)
 
         images.forEach(image => {
             formData.append('images', image)
@@ -129,7 +125,7 @@ const UpdateProduct = ({ match, history }) => {
                 <div className="col-12 col-md-10">
                     <Fragment>
                         <div className="wrapper my-5">
-                            <form className="shadow-lg" onSubmit={submitHandler} encType='multipart/form-data'>
+                            <form className="" onSubmit={submitHandler} encType='multipart/form-data'>
                                 <h1 className="mb-4">Update Product</h1>
 
                                 <div className="form-group">
@@ -176,17 +172,6 @@ const UpdateProduct = ({ match, history }) => {
                                         className="form-control"
                                         value={stock}
                                         onChange={(e) => setStock(e.target.value)}
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="seller_field">Seller Name</label>
-                                    <input
-                                        type="text"
-                                        id="seller_field"
-                                        className="form-control"
-                                        value={seller}
-                                        onChange={(e) => setSeller(e.target.value)}
                                     />
                                 </div>
 

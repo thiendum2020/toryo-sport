@@ -182,7 +182,7 @@ exports.deleteReviews = catchAsyncErrors(async (req, res, next) => {
 // Get all products (Admin)  =>   /api/admin/products
 exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
 
-    const products = await Product.find();
+    const products = await Product.find().sort('-createdAt')
 
     res.status(200).json({
         success: true,

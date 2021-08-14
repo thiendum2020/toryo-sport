@@ -182,8 +182,7 @@ export const productDetailsReducer = (state = { product: {} }, action) => {
             }
         case PRODUCT_DETAILS_RESET:
             return {
-                loading: false,
-                product: {}
+                loading: false
             }
         case CLEAR_ERRORS:
             return {

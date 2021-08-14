@@ -13,7 +13,7 @@ const Shop = ({ match, history }) => {
     const dispatch = useDispatch()
     const alert = useAlert()
     const [currentPage, setCurrentPage] = useState(1)
-    const [price, setPrice] = useState([1, 10000])
+    const [price, setPrice] = useState([1, 10000000])
     const [category, setCategory] = useState('')
     const [brand, setBrand] = useState('')
     const [rating, setRating] = useState(0)

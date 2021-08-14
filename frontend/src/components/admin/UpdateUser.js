@@ -21,10 +21,8 @@ const UpdateUser = ({ history, match }) => {
     const { user } = useSelector(state => state.userDetails)
 
     const userId = match.params.id
-
     useEffect(() => {
-
-        if (!user) {
+        if (!user || user._id !== userId) {
             dispatch(getUserDetails(userId))
         } else {
             setName(user.name)

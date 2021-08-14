@@ -29,6 +29,10 @@ const NewProduct = ({ history }) => {
     const [brand, setBrand] = useState(brands[0])
     const [stock, setStock] = useState(0)
     const [images, setImages] = useState([])
+    const [image1, setImage1] = useState('')
+    const [image2, setImage2] = useState('')
+    const [image3, setImage3] = useState('')
+    const [image4, setImage4] = useState('')
     const [imagesPreview1, setImagesPreview1] = useState('/images/no-image.png')
     const [imagesPreview2, setImagesPreview2] = useState('/images/no-image.png')
     const [imagesPreview3, setImagesPreview3] = useState('/images/no-image.png')
@@ -57,6 +61,11 @@ const NewProduct = ({ history }) => {
 
     const submitHandler = (e) => {
         e.preventDefault()
+        console.log(images)
+        console.log(image1)
+        console.log(image2)
+        console.log(image3)
+        console.log(image4)
         dispatch(newProduct(name, price, stock, description, category, brand, images))
     }
 
@@ -87,6 +96,7 @@ const NewProduct = ({ history }) => {
             headers: { 'content-type': 'multipart/form-data' }
         })
         setImages(oldArray => [...oldArray, res.data])
+        setImage1(res.data.public_id)
     }
     const onChange2 = async e => {
         const file = e.target.files[0]
@@ -115,6 +125,7 @@ const NewProduct = ({ history }) => {
             headers: { 'content-type': 'multipart/form-data' }
         })
         setImages(oldArray => [...oldArray, res.data])
+        setImage2(res.data.public_id)
     }
     const onChange3 = async e => {
         const file = e.target.files[0]
@@ -143,6 +154,7 @@ const NewProduct = ({ history }) => {
             headers: { 'content-type': 'multipart/form-data' }
         })
         setImages(oldArray => [...oldArray, res.data])
+        setImage3(res.data.public_id)
     }
     const onChange4 = async e => {
         const file = e.target.files[0]
@@ -171,8 +183,29 @@ const NewProduct = ({ history }) => {
             headers: { 'content-type': 'multipart/form-data' }
         })
         setImages(oldArray => [...oldArray, res.data])
+        setImage4(res.data.public_id)
     }
+    const deleteImage1 = async () => {
+        setImagesPreview1('/images/no-image.png')
+        setImages(images.filter(item => item.public_id !== image1))
+        setImage1('')
 
+    }
+    const deleteImage2 = async () => {
+        setImagesPreview2('/images/no-image.png')
+        setImages(images.filter(item => item.public_id !== image2))
+        setImage2('')
+    }
+    const deleteImage3 = async () => {
+        setImagesPreview3('/images/no-image.png')
+        setImages(images.filter(item => item.public_id !== image3))
+        setImage3('')
+    }
+    const deleteImage4 = async () => {
+        setImagesPreview4('/images/no-image.png')
+        setImages(images.filter(item => item.public_id !== image4))
+        setImage4('')
+    }
     return (
         <Fragment>
             <MetaData title={'New Product'} />
@@ -279,7 +312,7 @@ const NewProduct = ({ history }) => {
                                     accept='images/*'
                                     onChange={onChange1}
                                 />
-                                <span className="delete-img">X</span>
+                                <span className="delete-img" onClick={deleteImage1}>X</span>
                             </div>
                             <div className="col-6 col-md-6 img-preview">
                                 <img src={imagesPreview2} alt="" />
@@ -291,7 +324,7 @@ const NewProduct = ({ history }) => {
                                     accept='images/*'
                                     onChange={onChange2}
                                 />
-                                <span className="delete-img">X</span>
+                                <span className="delete-img" onClick={deleteImage2}>X</span>
                             </div>
                             <div className="col-6 col-md-6 img-preview">
                                 <img src={imagesPreview3} alt="" />
@@ -303,7 +336,7 @@ const NewProduct = ({ history }) => {
                                     accept='images/*'
                                     onChange={onChange3}
                                 />
-                                <span className="delete-img">X</span>
+                                <span className="delete-img" onClick={deleteImage3}>X</span>
                             </div>
                             <div className="col-6 col-md-6 img-preview">
                                 <img src={imagesPreview4} alt="" />
@@ -315,7 +348,7 @@ const NewProduct = ({ history }) => {
                                     accept='images/*'
                                     onChange={onChange4}
                                 />
-                                <span className="delete-img">X</span>
+                                <span className="delete-img" onClick={deleteImage4}>X</span>
                             </div>
                         </div>
                     </div>
