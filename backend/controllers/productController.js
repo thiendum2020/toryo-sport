@@ -81,17 +81,26 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
     if (!product) {
         return next(new ErrorHandler('Product not found', 404))
     }
+    else {
+        product.name = req.body.name
+        product.price = req.body.price
+        product.description = req.body.description
+        product.category = req.body.category
+        product.brand = req.body.brand
+        product.stock = req.body.stock
+        product.images = req.body.images
+        const updatedProduct = await product.save()
+        res.status(200).json({
+            success: true,
+            updatedProduct
+        })
+    }
+    // product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    //     new: true,
+    //     runValidators: true,
+    //     useFindAndModify: false
+    // })
 
-    product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        runValidators: true,
-        useFindAndModify: false
-    })
-
-    res.status(200).json({
-        success: true,
-        product
-    })
 })
 
 //Delete product   DELETE/api/product/:id

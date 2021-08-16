@@ -6,7 +6,7 @@ export const cartReducer = (state = { cartItems: [], shippingInfo: {} }, action)
         case ADD_TO_CART:
             const item = action.payload
 
-            const isItemExist = state.cartItems.find(i => i.product === item.product)
+            const isItemExist = state.cartItems.length > 0 && state.cartItems.find(i => i.product === item.product)
 
             if (isItemExist) {
                 state.cartItems.map(i => {

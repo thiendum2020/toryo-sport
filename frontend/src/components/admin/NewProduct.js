@@ -61,11 +61,6 @@ const NewProduct = ({ history }) => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        console.log(images)
-        console.log(image1)
-        console.log(image2)
-        console.log(image3)
-        console.log(image4)
         dispatch(newProduct(name, price, stock, description, category, brand, images))
     }
 
@@ -206,6 +201,7 @@ const NewProduct = ({ history }) => {
         setImages(images.filter(item => item.public_id !== image4))
         setImage4('')
     }
+
     return (
         <Fragment>
             <MetaData title={'New Product'} />
@@ -277,7 +273,7 @@ const NewProduct = ({ history }) => {
                                     <div className="col-6 col-md-6">
                                         <div className="form-group">
                                             <label htmlFor="brand_field">Brand</label>
-                                            <select className="form-control" id="category_field" value={brand} onChange={(e) => setBrand(e.target.value)}>
+                                            <select className="form-control" id="brand_field" value={brand} onChange={(e) => setBrand(e.target.value)}>
                                                 {brands.map(brand => (
                                                     <option key={brand} value={brand} >{brand}</option>
                                                 ))}
@@ -288,7 +284,7 @@ const NewProduct = ({ history }) => {
                                 </div>
 
                                 <button
-                                    id="login_button"
+                                    id="create_button"
                                     type="submit"
                                     className="btn btn-update btn-block">
                                     CREATE

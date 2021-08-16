@@ -141,9 +141,7 @@ export const getProductDetails = (id) => async (dispatch) => {
     try {
 
         dispatch({ type: PRODUCT_DETAILS_REQUEST })
-        console.log(id);
         const { data } = await axios.get(`/api/product/${id}`)
-        console.log(data);
         dispatch({
             type: PRODUCT_DETAILS_SUCCESS,
             payload: data.product
@@ -254,18 +252,17 @@ export const deleteProduct = (id) => async (dispatch) => {
 }
 
 // Update Product (ADMIN)
-export const updateProduct = (id, productData) => async (dispatch) => {
+export const updateProduct = (id, name, price, stock, description, category, brand, images) => async (dispatch) => {
     try {
 
         dispatch({ type: UPDATE_PRODUCT_REQUEST })
-
         const config = {
             headers: {
                 'Content-Type': 'application/json'
             }
         }
 
-        const { data } = await axios.put(`/api/admin/product/${id}`, productData, config)
+        const { data } = await axios.put(`/api/admin/product/${id}`, { id, name, price, stock, description, category, brand, images }, config)
 
         dispatch({
             type: UPDATE_PRODUCT_SUCCESS,

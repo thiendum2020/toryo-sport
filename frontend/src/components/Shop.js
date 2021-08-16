@@ -44,10 +44,9 @@ const Shop = ({ match, history }) => {
     }
 
     let count = productsCount
-    if (filteredProductsCount < productsCount && currentPage === 1) {
+    if (filteredProductsCount <= productsCount && currentPage === 1) {
         count = filteredProductsCount
     }
-
     return (
         <Fragment>
             <MetaData title={'Shop'} />

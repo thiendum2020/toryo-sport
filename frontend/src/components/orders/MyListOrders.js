@@ -103,11 +103,9 @@ const MyListOrders = () => {
                                         <MDBDataTableV5
                                             data={setOrders()}
                                             className="px-3"
-                                            striped
-                                            hover
                                             entriesOptions={[10, 20, 50]}
                                             entries={10}
-                                            pagingTop
+                                            hover
                                             searchTop
                                             searchBottom={false}
                                             barReverse
