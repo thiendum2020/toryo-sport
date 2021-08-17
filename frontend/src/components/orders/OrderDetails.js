@@ -148,7 +148,7 @@ const OrderDetails = ({ match }) => {
                                                         <span className={deliveredAt ? "greenColor order-summary-values" : "redColor order-summary-values"}>{deliveredAt ? `${String(deliveredAt).substring(0, 10)}` : "Not Delivery"}</span>
                                                     </p>
                                                     <p>Paid at:
-                                                        <span className={paidAt ? "greenColor order-summary-values" : "redColor order-summary-values"}><b>{paidAt ? `${String(paidAt).substring(0, 10)}` : "Not Paid"}</b></span>
+                                                        <span className={paidAt ? "greenColor order-summary-values" : "redColor order-summary-values"}><span>{paidAt ? `${String(paidAt).substring(0, 10)}` : "Not Paid"}</span></span>
                                                     </p>
                                                     <p>Received at:
                                                         <span className={receivedAt ? "greenColor order-summary-values" : "redColor order-summary-values"}>{receivedAt ? `${String(receivedAt).substring(0, 10)}` : "Not Received"}</span>

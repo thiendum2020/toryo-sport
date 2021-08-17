@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import { MDBDataTable } from 'mdbreact'
+import { MDBDataTableV5 } from 'mdbreact'
 
 import MetaData from '../layouts/MetaData'
 import Loader from '../layouts/Loader'
@@ -93,9 +93,9 @@ const ProductReviews = () => {
                 user: review.name,
 
                 actions:
-                    <button className="btn btn-danger py-1 px-2 ml-2" onClick={() => deleteReviewHandler(review._id)}>
-                        <i className="fa fa-trash"></i>
-                    </button>
+                    <a href className="icon icon-delete" onClick={() => deleteReviewHandler(review._id)} style={{ paddingLeft: '18px' }}>
+                        <i className='bx bxs-trash-alt' ></i>
+                    </a>
             })
         })
 
@@ -129,7 +129,7 @@ const ProductReviews = () => {
                                     <button
                                         id="search_button"
                                         type="submit"
-                                        className="btn btn-primary btn-block py-2"
+                                        className="btn btn-save btn-block py-2"
                                     >
                                         SEARCH
                                     </button>
@@ -139,12 +139,14 @@ const ProductReviews = () => {
                         </div>
 
                         {reviews && reviews.length > 0 ? (
-                            <MDBDataTable
+                            <MDBDataTableV5
                                 data={setReviews()}
                                 className="px-3"
-                                bordered
-                                striped
+                                entriesOptions={[10, 20, 50]}
+                                entries={10}
                                 hover
+                                searchTop
+                                searchBottom={false}
                             />
                         ) : (
                             <p className="mt-5 text-center">No Reviews.</p>

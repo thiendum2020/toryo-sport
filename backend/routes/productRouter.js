@@ -9,6 +9,7 @@ const {
     getLatestProducts,
     getSingleProduct,
     updateProduct,
+    updateStockProduct,
     deleteProduct,
     createProductReview,
     getProductReviews,
@@ -23,7 +24,8 @@ router.route('/products')
 
 router.route('/product/:id')
     .get(getSingleProduct)
-    .put(isAuthenticatedUser, updateProduct)
+
+router.route('/product/stock/:id').put(isAuthenticatedUser, updateStockProduct)
 
 router.route('/products/featured').get(getFeaturedProducts)
 router.route('/products/hot').get(getHotProducts)
@@ -35,10 +37,11 @@ router.route('/reviews')
     .delete(isAuthenticatedUser, deleteReviews)
 
 //Admin    
-router.route('/admin/products').get(getAdminProducts);
-router.route('/admin/product/new').post(isAuthenticatedUser, authorizeRoles('admin'), newProduct);
+router.route('/admin/products').get(getAdminProducts)
+router.route('/admin/product/new').post(isAuthenticatedUser, authorizeRoles('admin'), newProduct)
 router.route('/admin/product/:id')
     .put(isAuthenticatedUser, authorizeRoles('admin'), updateProduct)
     .delete(isAuthenticatedUser, authorizeRoles('admin'), deleteProduct)
+
 
 module.exports = router

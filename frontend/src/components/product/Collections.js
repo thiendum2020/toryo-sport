@@ -51,7 +51,49 @@ const Collections = ({ match }) => {
                                 <div className="row">
                                     <Fragment>
                                         <div className="col-3">
+                                            <div className="banner">
+                                                {
+                                                    collection && collection === 'Adidas' ? (
+                                                        <>
+                                                            <img src="/images/banner-adidas1.jpg" className="img-banner" alt="" />
+                                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis odit, amet quod sed sequi aperiam blanditiis tempore id quae, impedit suscipit facilis quo, molestias velit recusandae voluptatum qui magnam porro.
+                                                                Reiciendis culpa eveniet, maxime fuga repellat distinctio neque est accusantium iure a, ducimus odit qui eligendi nostrum quisquam voluptatum vitae unde sequi hic commodi ratione cum eius pariatur explicabo! Obcaecati.</p>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            {
+                                                                collection && collection === 'Nike' ? (
+                                                                    <>
+                                                                        <img src="/images/banner-nike2.jpg" className="img-banner" alt="" />
+                                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis odit, amet quod sed sequi aperiam blanditiis tempore id quae, impedit suscipit facilis quo, molestias velit recusandae voluptatum qui magnam porro.
+                                                                            Reiciendis culpa eveniet, maxime fuga repellat distinctio neque est accusantium iure a, ducimus odit qui eligendi nostrum quisquam voluptatum vitae unde sequi hic commodi ratione cum eius pariatur explicabo! Obcaecati.</p>
+                                                                    </>
+                                                                ) : (
+                                                                    <>
+                                                                        {
+                                                                            collection && collection === 'Puma' ? (
+                                                                                <>
+                                                                                    <img src="/images/banner-puma2.jpg" className="img-banner" alt="" />
+                                                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis odit, amet quod sed sequi aperiam blanditiis tempore id quae, impedit suscipit facilis quo, molestias velit recusandae voluptatum qui magnam porro.
+                                                                                        Reiciendis culpa eveniet, maxime fuga repellat distinctio neque est accusantium iure a, ducimus odit qui eligendi nostrum quisquam voluptatum vitae unde sequi hic commodi ratione cum eius pariatur explicabo! Obcaecati.</p>
+                                                                                </>
+                                                                            ) : (
+                                                                                <>
+                                                                                    <img src="/images/banner1.jpg" className="img-banner" alt="" />
+                                                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis odit, amet quod sed sequi aperiam blanditiis tempore id quae, impedit suscipit facilis quo, molestias velit recusandae voluptatum qui magnam porro.
+                                                                                        Reiciendis culpa eveniet, maxime fuga repellat distinctio neque est accusantium iure a, ducimus odit qui eligendi nostrum quisquam voluptatum vitae unde sequi hic commodi ratione cum eius pariatur explicabo! Obcaecati.</p>
+                                                                                </>
+                                                                            )
+                                                                        }
+                                                                    </>
 
+                                                                )
+                                                            }
+                                                        </>
+                                                    )
+                                                }
+
+                                            </div>
                                         </div>
                                     </Fragment>
 
@@ -75,34 +117,35 @@ const Collections = ({ match }) => {
                                                 }
 
                                             </div>
+                                            {
+                                                resPerPage <= count && (
+
+                                                    <div className="product-pagination">
+                                                        <Pagination
+                                                            activePage={currentPage}
+                                                            itemsCountPerPage={resPerPage}
+                                                            totalItemsCount={productsCount}
+                                                            onChange={setCurrentPageNo}
+                                                            nextPageText={'Next'}
+                                                            prevPageText={'Prev'}
+                                                            firstPageText={'First'}
+                                                            lastPageText={'Last'}
+                                                            itemClass="page-item"
+                                                            linkClass="page-link"
+                                                        />
+                                                    </div>
+                                                )
+                                            }
                                         </div>
                                     </Fragment>
                                 </div>
-                                {
-                                    resPerPage <= count && (
 
-                                        <div className="product-pagination">
-                                            <Pagination
-                                                activePage={currentPage}
-                                                itemsCountPerPage={resPerPage}
-                                                totalItemsCount={productsCount}
-                                                onChange={setCurrentPageNo}
-                                                nextPageText={'Next'}
-                                                prevPageText={'Prev'}
-                                                firstPageText={'First'}
-                                                lastPageText={'Last'}
-                                                itemClass="page-item"
-                                                linkClass="page-link"
-                                            />
-                                        </div>
-                                    )
-                                }
                             </>
                         )
                     }
                 </div>
             </section>
-        </Fragment>
+        </Fragment >
     )
 }
 

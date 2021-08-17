@@ -118,7 +118,7 @@ export const allOrders = () => async (dispatch) => {
 }
 
 // update order by admin
-export const updateOrderByAdmin = (id, orderData) => async (dispatch) => {
+export const updateOrderByAdmin = (id, status) => async (dispatch) => {
     try {
 
         dispatch({ type: UPDATE_ORDER_REQUEST })
@@ -129,7 +129,7 @@ export const updateOrderByAdmin = (id, orderData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.put(`/api/admin/order/${id}`, orderData, config)
+        const { data } = await axios.put(`/api/admin/order/${id}`, status, config)
 
         dispatch({
             type: UPDATE_ORDER_SUCCESS,
@@ -182,10 +182,11 @@ export const undoStockProduct = (productId, stock) => async (dispatch) => {
                 'Content-Type': 'application/json'
             }
         }
-        const { data } = await axios.put(`/api/product/${productId}`)
+        const { data } = await axios.get(`/api/product/${productId}`)
         const sold = data.product.sold - stock
         stock = data.product.stock + stock
-        await axios.put(`/api/product/${productId}`, { stock, sold }, config)
+        console.log(productId, stock, sold);
+        await axios.put(`/api/product/stock/${productId}`, { stock, sold }, config)
 
         dispatch({
             type: UNDO_STOCK_PRODUCT_SUCCESS,

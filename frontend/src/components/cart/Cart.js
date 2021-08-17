@@ -82,7 +82,7 @@ const Cart = ({ history }) => {
                                                                                         <span className="product-quantity-btn" onClick={() => decreaseQty(item.product, item.quantity)}>
                                                                                             <i className="bx bx-minus"></i>
                                                                                         </span>
-                                                                                        <input type="text" className="product-quantity" value={item.quantity} readOnly />
+                                                                                        <input type="number" className="product-quantity" value={item.quantity} readOnly />
                                                                                         <span className="product-quantity-btn" onClick={() => increaseQty(item.product, item.quantity, item.stock)}>
                                                                                             <i className="bx bx-plus"></i>
                                                                                         </span>

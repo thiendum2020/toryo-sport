@@ -76,6 +76,14 @@ li {
 .text-center {
     text-align: center !important;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type='number'] {
+    -moz-appearance: textfield;
+}
 /*--------------------------------------------------------------
 # 404
 --------------------------------------------------------------*/
@@ -832,22 +840,22 @@ footer ul li {
     }
 }
 
-.shop .product-pagination {
+.product-pagination {
     float: right;
     margin-top: 20px;
 }
 
-.shop .product-pagination .disabled .page-link {
+.product-pagination .disabled .page-link {
     color: gray;
 }
 
-.shop .product-pagination .page-item.active .page-link {
+.product-pagination .page-item.active .page-link {
     z-index: 3;
     color: #fff;
     background-color: #fa9c23;
     border-color: #fa9c23;
 }
-.shop .product-pagination .page-link {
+.product-pagination .page-link {
     position: relative;
     display: block;
     padding: 7px 10px;
@@ -993,6 +1001,20 @@ footer ul li {
 
 .clients img {
     transition: all 0.4s ease-in-out;
+}
+
+/* Banner */
+.banner {
+    border-right: 1px solid #ddd;
+}
+.img-banner {
+    width: 100%;
+    height: 100%;
+}
+.banner p {
+    padding: 20px 4px;
+    font-size: 18px;
+    font-weight: 300;
 }
 /*--------------------------------------------------------------
 # Product Details
@@ -1332,8 +1354,9 @@ footer ul li {
 .account-form .avatar-upload .avatar span {
     font-size: 14px;
     position: absolute;
-    top: 0;
+    top: 2px;
     left: 30px;
+    line-height: 1;
 }
 .rounded-circle {
     border-radius: 50% !important;
@@ -2138,4 +2161,18 @@ ul.CTAs a {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    position: relative;
+}
+.delete-img {
+    font-size: 14px;
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    right: 15px;
+    cursor: pointer;
+    display: block;
+    border: 1px solid #ddd;
+    background-color: red;
+    color: #fff;
+    line-height: 1;
 }
