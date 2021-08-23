@@ -22,13 +22,13 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
     const resPerPage = 6
     const productsCount = await Product.countDocuments()
 
-    const apiFeatures = new APIFeatures(Product.find().sort('-createdAt'), req.query).search().filter().pagination(resPerPage)
+    const apiFeatures = new APIFeatures(Product.find().sort('-createdAt'), req.query).search().filter()
 
     let products = await apiFeatures.query
     let filteredProductsCount = products.length
 
     apiFeatures.pagination(resPerPage)
-    products = await apiFeatures.query;
+    products = await apiFeatures.query
     res.status(200).json({
         success: true,
         productsCount,

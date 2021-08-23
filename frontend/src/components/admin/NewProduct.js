@@ -12,9 +12,9 @@ import { NEW_PRODUCT_RESET } from '../../constants/productConstants'
 const NewProduct = ({ history }) => {
 
     const categories = [
-        'Balls',
+        'Accessories',
         'Clothing',
-        'Shoes'
+        'Shoes',
     ]
     const brands = [
         'Adidas',

@@ -5,6 +5,7 @@ import { MDBDataTableV5 } from 'mdbreact'
 import MetaData from '../layouts/MetaData'
 import Loader from '../layouts/Loader'
 import Sidebar from './Sidebar'
+import swal from 'sweetalert'
 
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
@@ -33,8 +34,8 @@ const ProductsList = ({ history }) => {
         }
 
         if (isDeleted) {
-            alert.success('Product deleted successfully');
-            history.push('/admin/products');
+            alert.success('Product deleted successfully')
+            history.push('/admin/products')
             dispatch({ type: DELETE_PRODUCT_RESET })
         }
 
@@ -92,7 +93,23 @@ const ProductsList = ({ history }) => {
     }
 
     const deleteProductHandler = (id) => {
-        dispatch(deleteProduct(id))
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    dispatch(deleteProduct(id))
+                    swal("Poof! Your imaginary file has been deleted!", {
+                        icon: "success",
+                    })
+                } else {
+                    swal("Your imaginary file is safe!")
+                }
+            })
     }
 
     return (

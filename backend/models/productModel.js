@@ -36,10 +36,11 @@ const productSchema = new mongoose.Schema({
         required: true,
         enum: {
             values: [
+                'Accessories',
                 'Clothing',
                 'Shoes',
                 'Balls',
-                'Caps',
+                'Cap',
                 'Socks'
             ]
         }

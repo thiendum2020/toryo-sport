@@ -22,7 +22,7 @@ const Shop = ({ match, history }) => {
     const keyword = match.params.keyword
 
     const categories = [
-        'Balls',
+        'Accessories',
         'Clothing',
         'Shoes'
     ]
@@ -57,6 +57,7 @@ const Shop = ({ match, history }) => {
                         <div className="shop-title">
                             <h2>Shop</h2>
                             <p>All Products</p>
+                            <span>Total: {filteredProductsCount} products</span>
                         </div>
                         <div className="sort">
                             <select >
@@ -150,7 +151,7 @@ const Shop = ({ match, history }) => {
                                                     <Pagination
                                                         activePage={currentPage}
                                                         itemsCountPerPage={resPerPage}
-                                                        totalItemsCount={productsCount}
+                                                        totalItemsCount={filteredProductsCount}
                                                         onChange={setCurrentPageNo}
                                                         nextPageText={'Next'}
                                                         prevPageText={'Prev'}

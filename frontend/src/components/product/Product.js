@@ -4,13 +4,27 @@ import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { addItemToCart } from '../../actions/cartActions'
 const Product = ({ product, col, history }) => {
+    const size1 = [
+        'S',
+        'M',
+        'L',
+        'XL'
+    ]
+    const size2 = [
+        '38',
+        '39',
+        '40',
+        '41',
+        '42'
+    ]
     const dispatch = useDispatch()
     const { userLogin } = useSelector(state => state.auth)
     const alert = useAlert()
     const uid = userLogin ? userLogin._id : null
+    let size = product.category === 'Clothing' || product.category === 'Socks' ? 'S' : product.category === 'Shoes' ? '38' : 'Oversize'
     const addToCart = () => {
         if (uid) {
-            dispatch(addItemToCart(product._id, 1, uid))
+            dispatch(addItemToCart(product._id, 1, size, uid))
             alert.success('Item Added to Cart')
         }
         else {

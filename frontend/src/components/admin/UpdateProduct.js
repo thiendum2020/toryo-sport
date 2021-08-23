@@ -11,9 +11,9 @@ import { UPDATE_PRODUCT_RESET, PRODUCT_DETAILS_RESET } from '../../constants/pro
 
 const UpdateProduct = ({ match, history }) => {
     const categories = [
-        'Balls',
+        'Accessories',
         'Clothing',
-        'Shoes'
+        'Shoes',
     ]
 
     const brands = [

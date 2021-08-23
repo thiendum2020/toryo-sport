@@ -18,9 +18,9 @@ const Header = ({ location }) => {
     }
 
     const categories = [
-        'Balls',
+        'Accessories',
         'Clothing',
-        'Shoes'
+        'Shoes',
     ]
     const brands = [
         'Adidas',

@@ -11,26 +11,27 @@ const Cart = ({ history }) => {
     const { cartItems } = useSelector(state => state.cart)
     const uid = userLogin ? userLogin._id : null
 
-    const increaseQty = (id, quantity, stock) => {
+    const increaseQty = (id, quantity, size, stock) => {
         const newQty = quantity + 1;
 
         if (newQty > stock) return
-
-        dispatch(updateItemToCart(id, newQty, uid))
+        console.log(size);
+        dispatch(updateItemToCart(id, newQty, size, uid))
     }
 
-    const decreaseQty = (id, quantity) => {
+    const decreaseQty = (id, size, quantity) => {
 
         const newQty = quantity - 1;
 
         if (newQty <= 0) return
-
-        dispatch(updateItemToCart(id, newQty, uid))
+        console.log(size);
+        dispatch(updateItemToCart(id, newQty, size, uid))
 
     }
 
-    const removeCartItemHandler = (id) => {
-        dispatch(removeItemFromCart(id, uid))
+    const removeCartItemHandler = (id, size) => {
+        console.log(size);
+        dispatch(removeItemFromCart(id, size, uid))
     }
 
     const checkoutHandler = () => {
@@ -47,16 +48,17 @@ const Cart = ({ history }) => {
                             cartItems ? (
                                 <>
                                     {
-                                        cartItems.length === 0 ? <h3 className="container" style={{ margin: "50px auto 200px" }}>Cart is empty</h3> : (
+                                        cartItems.length === 0 ? <h3 className="container" style={{ margin: "50px auto 400px" }}>Cart is empty</h3> : (
                                             <Fragment>
                                                 <div className="container cart" style={{ margin: "50px auto 200px" }}>
                                                     <h3>My cart</h3>
                                                     <div class="row">
-                                                        <div className="col-8">
+                                                        <div className="col-9">
                                                             <table>
                                                                 <tbody>
                                                                     <tr className="table-header">
                                                                         <th><b>Product</b></th>
+                                                                        <th><b>Size</b></th>
                                                                         <th style={{ paddingLeft: "20px" }}><b>Quantity</b></th>
                                                                         <th style={{ textAlign: "right" }}><b>Subtotal</b></th>
                                                                     </tr>
@@ -68,22 +70,25 @@ const Cart = ({ history }) => {
                                                                                         <Link to={`/product/${item.product}`}>
                                                                                             <img src={item.image} alt="" />
                                                                                         </Link>
-                                                                                        <div>
+                                                                                        <div style={{ maxWidth: "240px" }}>
                                                                                             <Link to={`/product/${item.product}`}>
-                                                                                                <p><b>{item.name}</b></p>
+                                                                                                <p className="cart-item-name"><b>{item.name}</b></p>
                                                                                             </Link>
                                                                                             <p>Price: ${item.price}</p>
-                                                                                            <span onClick={() => removeCartItemHandler(item.product)} >Remove</span>
+                                                                                            <span onClick={() => removeCartItemHandler(item.product, item.size)} >Remove</span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </td>
+                                                                                <td>
+                                                                                    {item.size}
+                                                                                </td>
                                                                                 <td style={{ textAlign: "center" }}>
                                                                                     <div className="product-quantity-wrapper">
-                                                                                        <span className="product-quantity-btn" onClick={() => decreaseQty(item.product, item.quantity)}>
+                                                                                        <span className="product-quantity-btn" onClick={() => decreaseQty(item.product, item.size, item.quantity)}>
                                                                                             <i className="bx bx-minus"></i>
                                                                                         </span>
                                                                                         <input type="number" className="product-quantity" value={item.quantity} readOnly />
-                                                                                        <span className="product-quantity-btn" onClick={() => increaseQty(item.product, item.quantity, item.stock)}>
+                                                                                        <span className="product-quantity-btn" onClick={() => increaseQty(item.product, item.quantity, item.size, item.stock)}>
                                                                                             <i className="bx bx-plus"></i>
                                                                                         </span>
 
@@ -96,7 +101,7 @@ const Cart = ({ history }) => {
                                                                 </tbody>
                                                             </table>
                                                         </div>
-                                                        <div className="col-4 checkout-wrap">
+                                                        <div className="col-3 checkout-wrap">
 
                                                             <div className="total-price">
                                                                 <table>
@@ -106,12 +111,12 @@ const Cart = ({ history }) => {
                                                                             <td><h5>{cartItems.length}</h5></td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <td>Subtotal</td>
-                                                                            <td>${cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0)}</td>
+                                                                            <td><b>Subtotal</b></td>
+                                                                            <td><b>${cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0)}</b></td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
-                                                                <button className="btn btn-checkout" onClick={checkoutHandler}>Proceed To Checkout</button>
+                                                                <button className="btn btn-checkout btn-block" onClick={checkoutHandler}>Proceed To Checkout</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -123,12 +128,12 @@ const Cart = ({ history }) => {
                                     }
                                 </>
                             ) : (
-                                <h3 className="container" style={{ margin: "50px auto 200px" }}>Cart is empty</h3>
+                                <h3 className="container" style={{ margin: "50px auto 400px" }}>Cart is empty</h3>
                             )
                         }
                     </>
                 ) : (
-                    <h3 className="container" style={{ margin: "50px auto 200px" }}>Login to view your cart</h3>
+                    <h3 className="container" style={{ margin: "50px auto 400px" }}>Login to view your cart</h3>
                 )
             }
         </Fragment >

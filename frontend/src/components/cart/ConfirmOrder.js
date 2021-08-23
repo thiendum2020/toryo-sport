@@ -59,6 +59,7 @@ const ConfirmOrder = ({ history }) => {
 
                                             <div className="col-6 col-lg-6">
                                                 <Link to={`/product/${item.product}`}>{item.name}</Link>
+                                                <p>Size: {item.size}</p>
                                             </div>
 
 

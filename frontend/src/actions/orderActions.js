@@ -185,7 +185,6 @@ export const undoStockProduct = (productId, stock) => async (dispatch) => {
         const { data } = await axios.get(`/api/product/${productId}`)
         const sold = data.product.sold - stock
         stock = data.product.stock + stock
-        console.log(productId, stock, sold);
         await axios.put(`/api/product/stock/${productId}`, { stock, sold }, config)
 
         dispatch({

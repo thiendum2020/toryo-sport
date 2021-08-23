@@ -12,7 +12,21 @@ import { addItemToCart } from '../../actions/cartActions'
 import { NEW_REVIEW_RESET } from '../../constants/productConstants'
 
 const ProductDetails = ({ match, history }) => {
+    const size1 = [
+        'S',
+        'M',
+        'L',
+        'XL'
+    ]
+    const size2 = [
+        '38',
+        '39',
+        '40',
+        '41',
+        '42'
+    ]
     const [quantity, setQuantity] = useState(1)
+    const [size, setSize] = useState('Oversize')
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState('')
     const dispatch = useDispatch()
@@ -66,7 +80,7 @@ const ProductDetails = ({ match, history }) => {
 
 
         if (uid) {
-            dispatch(addItemToCart(match.params.id, quantity, uid))
+            dispatch(addItemToCart(match.params.id, quantity, size, uid))
             alert.success('Item Added to Cart')
         }
         else {
@@ -181,16 +195,41 @@ const ProductDetails = ({ match, history }) => {
                                             </div>
                                             {
                                                 product.stock > 0 ? (
-                                                    <div className="product-quantity-wrapper">
-                                                        <span className="product-quantity-btn" onClick={decreaseQty}>
-                                                            <i className="bx bx-minus"></i>
-                                                        </span>
-                                                        <input type="number" className="product-quantity" value={quantity} readOnly />
-                                                        <span className="product-quantity-btn" onClick={increaseQty}>
-                                                            <i className="bx bx-plus"></i>
-                                                        </span>
+                                                    <>
+                                                        <div className="product-quantity-wrapper">
+                                                            <span className="product-quantity-btn" onClick={decreaseQty}>
+                                                                <i className="bx bx-minus"></i>
+                                                            </span>
+                                                            <input type="number" className="product-quantity" value={quantity} readOnly />
+                                                            <span className="product-quantity-btn" onClick={increaseQty}>
+                                                                <i className="bx bx-plus"></i>
+                                                            </span>
+                                                            <select className="form-control" id="category_field" value={size} onChange={(e) => setSize(e.target.value)} style={{ marginLeft: '30px', width: '10%' }}>
+                                                                {
+                                                                    product.category === 'Clothing' || product.category === 'Socks' ? (
+
+                                                                        size1.map(s => (
+                                                                            <option key={s} value={s} >{s}</option>
+                                                                        ))
+
+                                                                    ) : (
+                                                                        product.category === 'Shoes' ? (
+                                                                            size2.map(s => (
+                                                                                <option key={s} value={s} >{s}</option>
+                                                                            ))
+                                                                        ) : (
+                                                                            <span style={{ marginLeft: '30px' }}>Size: Oversize</span>
+                                                                        )
+                                                                    )
+
+                                                                }
+                                                                {/* {
+                                                                    !size && 
+                                                                } */}
+                                                            </select>
+                                                        </div>
                                                         <button type="button" className="btn-cart" disabled={product.stock === 0} onClick={addToCart}>Add to cart</button>
-                                                    </div>
+                                                    </>
                                                 ) : null
                                             }
 

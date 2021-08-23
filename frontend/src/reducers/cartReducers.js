@@ -5,13 +5,14 @@ export const cartReducer = (state = { cartItems: [], shippingInfo: {} }, action)
 
         case ADD_TO_CART:
             const item = action.payload
-
-            const isItemExist = state.cartItems.length > 0 && state.cartItems.find(i => i.product === item.product)
-
+            const isItemExist = state.cartItems ? state.cartItems.find(i => i.product === item.product && i.size === item.size) : null
+            console.log(isItemExist);
             if (isItemExist) {
                 state.cartItems.map(i => {
-                    if (i.product === isItemExist.product) {
+                    if (i.product === isItemExist.product && i.size === isItemExist.size) {
+
                         i.quantity = i.quantity + item.quantity
+
                     }
                 })
 
@@ -20,28 +21,36 @@ export const cartReducer = (state = { cartItems: [], shippingInfo: {} }, action)
                     cartItems: state.cartItems
                 }
             } else {
-                return {
-                    ...state,
-                    cartItems: [...state.cartItems, item]
+                console.log(state.cartItems);
+                if (state.cartItems) {
+                    console.log('ac');
+                    return {
+                        ...state,
+                        cartItems: [...state.cartItems, item]
+                    }
+                } else {
+                    return {
+                        ...state,
+                        cartItems: [item]
+                    }
                 }
             }
 
         case REMOVE_ITEM_CART:
+            let isItemRemove = state.cartItems.find(i => i.product === action.payload.id && i.size === action.payload.size)
             return {
                 ...state,
-                cartItems: state.cartItems.filter(i => i.product !== action.payload)
+                cartItems: state.cartItems.filter(i => i !== isItemRemove)
             }
 
         case UPDATE_TO_CART:
             const updateItem = action.payload;
-
-            const isUpdateItemExist = state.cartItems.find(i => i.product === updateItem.product)
-
+            const isUpdateItemExist = state.cartItems.find(i => i.product === updateItem.product && i.size === updateItem.size)
             if (isUpdateItemExist) {
 
                 return {
                     ...state,
-                    cartItems: state.cartItems.map(i => i.product === isUpdateItemExist.product ? updateItem : i)
+                    cartItems: state.cartItems.map(i => i.product === isUpdateItemExist.product && i.size === isUpdateItemExist.size ? updateItem : i)
                 }
             } else {
                 return {

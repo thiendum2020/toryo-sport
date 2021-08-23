@@ -44,6 +44,7 @@ const Collections = ({ match }) => {
                     <div className="shop-title">
                         <h2>Collections</h2>
                         <p>{collection} Collections</p>
+                        <span>Total: {filteredProductsCount} products</span>
                     </div>
                     {
                         loading ? <Loader /> : (
@@ -124,7 +125,7 @@ const Collections = ({ match }) => {
                                                         <Pagination
                                                             activePage={currentPage}
                                                             itemsCountPerPage={resPerPage}
-                                                            totalItemsCount={productsCount}
+                                                            totalItemsCount={filteredProductsCount}
                                                             onChange={setCurrentPageNo}
                                                             nextPageText={'Next'}
                                                             prevPageText={'Prev'}

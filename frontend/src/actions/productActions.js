@@ -214,7 +214,6 @@ export const newProduct = (name, price, stock, description, category, brand, ima
                 'Content-Type': 'application/json'
             }
         }
-        console.log(images)
         const { data } = await axios.post(`/api/admin/product/new`, { name, price, stock, description, category, brand, images }, config)
 
         dispatch({

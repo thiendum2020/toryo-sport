@@ -769,6 +769,13 @@ footer ul li {
     text-transform: uppercase;
     font-size: 14px;
     margin: 8px 0;
+    line-height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    height: 40px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
 }
 .product-item p {
     font-weight: 700;
@@ -1110,13 +1117,13 @@ footer ul li {
     -webkit-appearance: none;
     margin: 0;
 }
-.product-quantity-wrapper .btn-cart {
-    margin: 0 0 0 24px;
+.product-details .btn-cart {
+    margin: 20px 0;
     transition: all 0.5s;
 
     font-weight: 600;
 }
-.product-quantity-wrapper .btn-cart {
+.product-details .btn-cart {
     padding: 10px 20px;
     border: none;
     outline: none;
@@ -1127,7 +1134,7 @@ footer ul li {
     z-index: 0;
 }
 
-.product-quantity-wrapper .btn-cart:before {
+.product-details .btn-cart:before {
     content: '';
     background: linear-gradient(
         45deg,
@@ -1566,7 +1573,15 @@ footer ul li {
 }
 .cart .cart-info {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+}
+.cart .cart-info .cart-item-name {
+    font-size: 14px;
+    line-height: 20px;
+    -webkit-line-clamp: 2;
+    height: 40px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
 }
 .cart .cart-info p {
     margin-bottom: 5px;
@@ -1713,10 +1728,14 @@ td img {
 .order-confirm {
     margin: 60px 0;
 }
+.order-confirm p {
+    font-size: 16px;
+}
 .order-confirm .cart-item {
     margin: 16px 0;
 }
 .order-confirm .cart-item a {
+    font-size: 20px;
     color: #000;
     transition: all 0.3s;
 }
@@ -1814,6 +1833,9 @@ td img {
 .my-orders h3 {
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
+}
+.my-orders .cart-item a {
+    font-size: 20px;
 }
 .profile .profile-header {
     display: flex;
