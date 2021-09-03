@@ -124,7 +124,9 @@ const OrderDetails = ({ match }) => {
                                                             </div>
 
                                                             <div className="col-5 col-lg-5">
-                                                                <Link to={`/product/${item.product}`}>{item.name}</Link>
+                                                                <Link to={`/product/${item.product}`}>
+                                                                    <p>{item.name}</p>
+                                                                </Link>
                                                                 <p>Size: {item.size}</p>
                                                             </div>
 

@@ -22,6 +22,9 @@ import {
     ADMIN_PRODUCTS_REQUEST,
     ADMIN_PRODUCTS_SUCCESS,
     ADMIN_PRODUCTS_FAIL,
+    ADMIN_PRODUCTS_CHARTS_REQUEST,
+    ADMIN_PRODUCTS_CHARTS_SUCCESS,
+    ADMIN_PRODUCTS_CHARTS_FAIL,
     NEW_PRODUCT_REQUEST,
     NEW_PRODUCT_SUCCESS,
     NEW_PRODUCT_RESET,
@@ -162,7 +165,33 @@ export const latestProductsReducer = (state = { latestProducts: [] }, action) =>
             return state
     }
 }
+export const hotProductsByAdminReducer = (state = { hotProductsByAdmin: [] }, action) => {
+    switch (action.type) {
+        case ADMIN_PRODUCTS_CHARTS_REQUEST:
+            return {
+                loading: true,
+                hotProductsByAdmin: []
+            }
+        case ADMIN_PRODUCTS_CHARTS_SUCCESS:
+            return {
+                loading: false,
+                hotProductsByAdmin: action.payload
 
+            }
+        case ADMIN_PRODUCTS_CHARTS_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
+            }
+        default:
+            return state
+    }
+}
 export const productDetailsReducer = (state = { product: {} }, action) => {
     switch (action.type) {
         case PRODUCT_DETAILS_REQUEST:

@@ -89,6 +89,26 @@ const UpdateProduct = ({ match, history }) => {
 
     const submitHandler = (e) => {
         e.preventDefault()
+        if (name === '') {
+            alert.error('Please enter a name!')
+            return
+        }
+        if (price === '' || price === '0') {
+            alert.error('Please enter the price greater than 0!')
+            return
+        }
+        if (stock === '' || stock === '0') {
+            alert.error('Please enter the stock greater than 0!')
+            return
+        }
+        if (description === '') {
+            alert.error('Please enter a description!')
+            return
+        }
+        if (images.length === 0) {
+            alert.error('Please add images!')
+            return
+        }
         images.forEach(function (v) { delete v._id })
         dispatch(updateProduct(product._id, name, price, stock, description, category, brand, images))
     }

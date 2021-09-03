@@ -221,3 +221,12 @@ exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
     })
 
 })
+
+exports.getHotProductsByAdmin = catchAsyncErrors(async (req, res, next) => {
+
+    const hotProductsByAdmin = await Product.find().sort('-sold').limit(10)
+    res.status(200).json({
+        success: true,
+        hotProductsByAdmin
+    })
+})

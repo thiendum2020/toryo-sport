@@ -1834,8 +1834,16 @@ td img {
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
 }
-.my-orders .cart-item a {
-    font-size: 20px;
+.my-orders .cart-item a p {
+    font-size: 16px;
+    line-height: 20px;
+    -webkit-line-clamp: 2;
+    height: 40px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
 }
 .profile .profile-header {
     display: flex;

@@ -53,7 +53,7 @@ const NewProduct = ({ history }) => {
 
         if (success) {
             history.push('/admin/products');
-            alert.success('Product created successfully');
+            alert.success('Product created successfully')
             dispatch({ type: NEW_PRODUCT_RESET })
         }
 
@@ -61,6 +61,26 @@ const NewProduct = ({ history }) => {
 
     const submitHandler = (e) => {
         e.preventDefault()
+        if (name === '') {
+            alert.error('Please enter a name!')
+            return
+        }
+        if (price === '') {
+            alert.error('Please enter the price greater than 0!')
+            return
+        }
+        if (stock === '') {
+            alert.error('Please enter the stock greater than 0!')
+            return
+        }
+        if (description === '') {
+            alert.error('Please enter a description!')
+            return
+        }
+        if (images.length === 0) {
+            alert.error('Please add images!')
+            return
+        }
         dispatch(newProduct(name, price, stock, description, category, brand, images))
     }
 
@@ -75,15 +95,6 @@ const NewProduct = ({ history }) => {
         if (file.size > 1024 * 1024 * 5) {
             return alert.error('File too large!')
         }
-
-        const reader = new FileReader()
-        reader.onload = () => {
-            if (reader.readyState === 2) {
-                setImagesPreview1(reader.result)
-            }
-        }
-        reader.readAsDataURL(e.target.files[0])
-
         let formData = new FormData()
         formData.append('file', file)
 
@@ -92,6 +103,14 @@ const NewProduct = ({ history }) => {
         })
         setImages(oldArray => [...oldArray, res.data])
         setImage1(res.data.public_id)
+
+        const reader = new FileReader()
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setImagesPreview1(reader.result)
+            }
+        }
+        reader.readAsDataURL(e.target.files[0])
     }
     const onChange2 = async e => {
         const file = e.target.files[0]
@@ -105,14 +124,6 @@ const NewProduct = ({ history }) => {
             return alert.error('File too large!')
         }
 
-        const reader = new FileReader()
-        reader.onload = () => {
-            if (reader.readyState === 2) {
-                setImagesPreview2(reader.result)
-            }
-        }
-        reader.readAsDataURL(e.target.files[0])
-
         let formData = new FormData()
         formData.append('file', file)
 
@@ -121,6 +132,15 @@ const NewProduct = ({ history }) => {
         })
         setImages(oldArray => [...oldArray, res.data])
         setImage2(res.data.public_id)
+
+
+        const reader = new FileReader()
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setImagesPreview2(reader.result)
+            }
+        }
+        reader.readAsDataURL(e.target.files[0])
     }
     const onChange3 = async e => {
         const file = e.target.files[0]
@@ -134,14 +154,6 @@ const NewProduct = ({ history }) => {
             return alert.error('File too large!')
         }
 
-        const reader = new FileReader()
-        reader.onload = () => {
-            if (reader.readyState === 2) {
-                setImagesPreview3(reader.result)
-            }
-        }
-        reader.readAsDataURL(e.target.files[0])
-
         let formData = new FormData()
         formData.append('file', file)
 
@@ -150,6 +162,15 @@ const NewProduct = ({ history }) => {
         })
         setImages(oldArray => [...oldArray, res.data])
         setImage3(res.data.public_id)
+
+
+        const reader = new FileReader()
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setImagesPreview3(reader.result)
+            }
+        }
+        reader.readAsDataURL(e.target.files[0])
     }
     const onChange4 = async e => {
         const file = e.target.files[0]
@@ -163,14 +184,6 @@ const NewProduct = ({ history }) => {
             return alert.error('File too large!')
         }
 
-        const reader = new FileReader()
-        reader.onload = () => {
-            if (reader.readyState === 2) {
-                setImagesPreview4(reader.result)
-            }
-        }
-        reader.readAsDataURL(e.target.files[0])
-
         let formData = new FormData()
         formData.append('file', file)
 
@@ -179,6 +192,15 @@ const NewProduct = ({ history }) => {
         })
         setImages(oldArray => [...oldArray, res.data])
         setImage4(res.data.public_id)
+
+
+        const reader = new FileReader()
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setImagesPreview4(reader.result)
+            }
+        }
+        reader.readAsDataURL(e.target.files[0])
     }
     const deleteImage1 = async () => {
         setImagesPreview1('/images/no-image.png')

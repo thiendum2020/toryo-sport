@@ -14,7 +14,8 @@ const {
     createProductReview,
     getProductReviews,
     deleteReviews,
-    getAdminProducts
+    getAdminProducts,
+    getHotProductsByAdmin
 } = require('../controllers/productController')
 
 const { isAuthenticatedUser, authorizeRoles } = require('../middleware/auth')
@@ -38,6 +39,7 @@ router.route('/reviews')
 
 //Admin    
 router.route('/admin/products').get(getAdminProducts)
+router.route('/admin/products/charts').get(isAuthenticatedUser, authorizeRoles('admin'), getHotProductsByAdmin)
 router.route('/admin/product/new').post(isAuthenticatedUser, authorizeRoles('admin'), newProduct)
 router.route('/admin/product/:id')
     .put(isAuthenticatedUser, authorizeRoles('admin'), updateProduct)

@@ -204,29 +204,31 @@ const ProductDetails = ({ match, history }) => {
                                                             <span className="product-quantity-btn" onClick={increaseQty}>
                                                                 <i className="bx bx-plus"></i>
                                                             </span>
-                                                            <select className="form-control" id="category_field" value={size} onChange={(e) => setSize(e.target.value)} style={{ marginLeft: '30px', width: '10%' }}>
-                                                                {
-                                                                    product.category === 'Clothing' || product.category === 'Socks' ? (
+                                                            {
+                                                                product.category === 'Accessories' ? <span style={{ marginLeft: '30px' }}>Size: Oversize</span> : (
+                                                                    <select className="form-control" id="category_field" value={size} onChange={(e) => setSize(e.target.value)} style={{ marginLeft: '30px', width: '12%' }}>
+                                                                        {
+                                                                            product.category === 'Clothing' ? (
 
-                                                                        size1.map(s => (
-                                                                            <option key={s} value={s} >{s}</option>
-                                                                        ))
+                                                                                size1.map(s => (
+                                                                                    <option key={s} value={s} >{s}</option>
+                                                                                ))
 
-                                                                    ) : (
-                                                                        product.category === 'Shoes' ? (
-                                                                            size2.map(s => (
-                                                                                <option key={s} value={s} >{s}</option>
-                                                                            ))
-                                                                        ) : (
-                                                                            <span style={{ marginLeft: '30px' }}>Size: Oversize</span>
-                                                                        )
-                                                                    )
+                                                                            ) : (
+                                                                                product.category === 'Shoes' ? (
+                                                                                    size2.map(s => (
+                                                                                        <option key={s} value={s} >{s}</option>
+                                                                                    ))
+                                                                                ) : (
+                                                                                    <span style={{ marginLeft: '30px' }}>Size: Oversize</span>
+                                                                                )
+                                                                            )
 
-                                                                }
-                                                                {/* {
-                                                                    !size && 
-                                                                } */}
-                                                            </select>
+                                                                        }
+                                                                    </select>
+                                                                )
+                                                            }
+
                                                         </div>
                                                         <button type="button" className="btn-cart" disabled={product.stock === 0} onClick={addToCart}>Add to cart</button>
                                                     </>

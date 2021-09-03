@@ -11,6 +11,9 @@ import {
     PRODUCT_LATEST_REQUEST,
     PRODUCT_LATEST_SUCCESS,
     PRODUCT_LATEST_FAIL,
+    ADMIN_PRODUCTS_CHARTS_REQUEST,
+    ADMIN_PRODUCTS_CHARTS_SUCCESS,
+    ADMIN_PRODUCTS_CHARTS_FAIL,
     PRODUCT_DETAILS_REQUEST,
     PRODUCT_DETAILS_SUCCESS,
     PRODUCT_DETAILS_FAIL,
@@ -113,7 +116,21 @@ export const getLatestProducts = () => async (dispatch) => {
         })
     }
 }
-
+export const getHotProductsByAdmin = () => async (dispatch) => {
+    try {
+        dispatch({ type: ADMIN_PRODUCTS_CHARTS_REQUEST })
+        const { data } = await axios.get('/api/admin/products/charts')
+        dispatch({
+            type: ADMIN_PRODUCTS_CHARTS_SUCCESS,
+            payload: data.hotProductsByAdmin
+        })
+    } catch (error) {
+        dispatch({
+            type: ADMIN_PRODUCTS_CHARTS_FAIL,
+            payload: error.response.data.message,
+        })
+    }
+}
 export const getProductCollections = (currentPage = 1, price, collections, collection) => async (dispatch) => {
     try {
         dispatch({ type: ALL_PRODUCTS_REQUEST })
