@@ -262,6 +262,7 @@ ul.divided > li:last-child {
 }
 .avatar img {
     width: 100%;
+    height: 40px;
 }
 .header-cart {
     position: relative;
