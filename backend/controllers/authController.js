@@ -16,8 +16,8 @@ exports.register = catchAsyncErrors(async (req, res, next) => {
         email,
         password,
         avatar: {
-            public_id: avatar ? avatar.public_id : 'h0vmev2tvtpjykntr0tk',
-            url: avatar ? avatar.url : 'https://res.cloudinary.com/toryobuyall/image/upload/v1624286546/test/h0vmev2tvtpjykntr0tk.jpg'
+            public_id: avatar ? avatar.public_id : 'nozomi-sasaki_fsnwsh',
+            url: avatar ? avatar.url : 'https://res.cloudinary.com/toryobuyall/image/upload/v1624279409/Toryo-Buy-All/nozomi-sasaki_fsnwsh.jpg'
         }
     })
 

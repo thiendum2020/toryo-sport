@@ -52,14 +52,6 @@ const Register = ({ history }) => {
             return alert.error('File too large!')
         }
 
-        const reader = new FileReader()
-        reader.onload = () => {
-            if (reader.readyState === 2) {
-                setAvatarPreview(reader.result)
-            }
-        }
-        reader.readAsDataURL(e.target.files[0])
-
         let formData = new FormData()
         formData.append('file', file)
 
@@ -67,13 +59,17 @@ const Register = ({ history }) => {
             headers: { 'content-type': 'multipart/form-data' }
         })
         setAvatar(res.data)
+        const reader = new FileReader()
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setAvatarPreview(reader.result)
+            }
+        }
+        reader.readAsDataURL(e.target.files[0])
     }
 
     const deleteImageHandler = async () => {
         setAvatarPreview('/images/default_avatar.jpg')
-
-        await axios.post('/api/destroy', { public_id: avatar.public_id }, {
-        })
         setAvatar('')
     }
 
