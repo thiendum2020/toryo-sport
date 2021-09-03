@@ -63,14 +63,6 @@ const Profile = ({ history }) => {
             return alert.error('File too large!')
         }
 
-        const reader = new FileReader();
-        reader.onload = () => {
-            if (reader.readyState === 2) {
-                setAvatarPreview(reader.result)
-            }
-        }
-        reader.readAsDataURL(e.target.files[0])
-
         let formData = new FormData()
         formData.append('file', file)
 
@@ -78,6 +70,14 @@ const Profile = ({ history }) => {
             headers: { 'content-type': 'multipart/form-data' }
         })
         setAvatar(res.data)
+
+        const reader = new FileReader();
+        reader.onload = () => {
+            if (reader.readyState === 2) {
+                setAvatarPreview(reader.result)
+            }
+        }
+        reader.readAsDataURL(e.target.files[0])
     }
 
     const submitHandler = (e) => {
