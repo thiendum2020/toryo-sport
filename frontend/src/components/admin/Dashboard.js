@@ -124,7 +124,7 @@ const Dashboard = () => {
 
                             </div>
 
-                            <h4 className="my-4">Top 10 Best-Selling Products</h4>
+                            {/* <h4 className="my-4">Top 10 Best-Selling Products</h4>
 
                             <Bar
                                 data={{
@@ -155,7 +155,7 @@ const Dashboard = () => {
                                         text: "Predicted world population (millions) in 2050"
                                     }
                                 }}
-                            />
+                            /> */}
 
                         </Fragment>
                     )}

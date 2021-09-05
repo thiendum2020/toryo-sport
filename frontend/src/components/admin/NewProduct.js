@@ -133,7 +133,6 @@ const NewProduct = ({ history }) => {
         setImages(oldArray => [...oldArray, res.data])
         setImage2(res.data.public_id)
 
-
         const reader = new FileReader()
         reader.onload = () => {
             if (reader.readyState === 2) {
@@ -163,7 +162,6 @@ const NewProduct = ({ history }) => {
         setImages(oldArray => [...oldArray, res.data])
         setImage3(res.data.public_id)
 
-
         const reader = new FileReader()
         reader.onload = () => {
             if (reader.readyState === 2) {
@@ -192,7 +190,6 @@ const NewProduct = ({ history }) => {
         })
         setImages(oldArray => [...oldArray, res.data])
         setImage4(res.data.public_id)
-
 
         const reader = new FileReader()
         reader.onload = () => {
