@@ -17,7 +17,7 @@ const OrderDetails = ({ match }) => {
     const dispatch = useDispatch()
 
     const { loading, error, order = {} } = useSelector(state => state.orderDetails)
-    const { shippingInfo, orderItems, paymentInfo, user, totalPrice, orderStatus, paidAt, deliveredAt, receivedAt } = order
+    const { shippingInfo, orderItems, paymentInfo, user, totalPrice, orderStatus, paidAt, deliveredAt, receivedAt, createdAt } = order
     const { error: errorUpdateOrder, isUpdated } = useSelector(state => state.order)
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const OrderDetails = ({ match }) => {
     const shippingDetails = shippingInfo && `${shippingInfo.address}, ${shippingInfo.city}`
     const isCancel = orderStatus && orderStatus === 'Processing' ? true : false
     const isReceive = orderStatus && orderStatus === 'Delivering' ? true : false
-
+    const time = createdAt && String(createdAt).substring(0, 10)
     const cancelOrder = () => {
 
         for (let i = 0; i < orderItems.length; i++) {
@@ -100,7 +100,13 @@ const OrderDetails = ({ match }) => {
                     </div>
                     <div className="col-10">
                         {
-                            loading ? <Loader /> : (
+                            loading ? (
+                                <>
+                                    <div style={{ paddingTop: '100px' }}></div>
+                                    <Loader />
+                                    <div style={{ paddingTop: '100px' }}></div>
+                                </>
+                            ) : (
 
                                 <Fragment>
                                     <div className="my-orders">
@@ -112,6 +118,7 @@ const OrderDetails = ({ match }) => {
                                                 <p><b>Phone: </b> {shippingInfo && shippingInfo.phone}</p>
                                                 <p><b>Address: </b>{shippingDetails}</p>
                                                 <p><b>Amount:</b> ${totalPrice}</p>
+                                                <p><b>Time:</b> {time}</p>
 
                                                 <h5 className="my-4">Order Items:</h5>
 

@@ -94,24 +94,30 @@ const MyListOrders = () => {
                             <h3>My Orders</h3>
 
                             {
-                                loading ? <Loader /> : (
-                                    orders && orders.length === 0 ? (
-                                        <>
-                                            <h4 style={{ margin: '60px 0 300px' }}>Orders is empty</h4>
-                                        </>
-                                    ) : (
-                                        <MDBDataTableV5
-                                            data={setOrders()}
-                                            className="px-3"
-                                            entriesOptions={[10, 20, 50]}
-                                            entries={10}
-                                            hover
-                                            searchTop
-                                            searchBottom={false}
-                                            barReverse
-                                        />
-                                    )
+                                loading ? (
+                                    <>
+                                        <div style={{ padding: '50px 0 100px 0' }}></div>
+                                        <Loader />
+                                    </>
                                 )
+                                    : (
+                                        orders && orders.length === 0 ? (
+                                            <>
+                                                <h4 style={{ margin: '60px 0 300px' }}>Orders is empty</h4>
+                                            </>
+                                        ) : (
+                                            <MDBDataTableV5
+                                                data={setOrders()}
+                                                className="px-3"
+                                                entriesOptions={[10, 20, 50]}
+                                                entries={10}
+                                                hover
+                                                searchTop
+                                                searchBottom={false}
+                                                barReverse
+                                            />
+                                        )
+                                    )
                             }
                         </div>
                     </div>

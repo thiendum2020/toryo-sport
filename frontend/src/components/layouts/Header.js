@@ -1,32 +1,33 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import Search from './Search'
 import { Route, Link, withRouter } from 'react-router-dom'
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../actions/userActions'
 import { CART_RESET } from '../../constants/cartConstants'
+import { getBrands } from '../../actions/brandActions'
+import { getCategories } from '../../actions/categoryActions'
 
 const Header = ({ location }) => {
     const dispatch = useDispatch()
     const alert = useAlert()
     const { userLogin } = useSelector(state => state.auth)
     const { cartItems } = useSelector(state => state.cart)
+    const { brands } = useSelector(state => state.brands)
+    const { categories } = useSelector(state => state.categories)
+
     const logoutHandler = () => {
         dispatch(logout())
         dispatch({ type: CART_RESET })
         alert.success('Logged out successfully.')
     }
 
-    const categories = [
-        'Accessories',
-        'Clothing',
-        'Shoes',
-    ]
-    const brands = [
-        'Adidas',
-        'Nike',
-        'Puma'
-    ]
+    useEffect(() => {
+
+        dispatch(getBrands())
+        dispatch(getCategories())
+
+    }, [dispatch, alert])
 
     return location.pathname.split('/')[1] === 'admin' ? (
         <>
@@ -194,8 +195,8 @@ const Header = ({ location }) => {
                                                     <h3>Categories</h3>
                                                     <ul>
                                                         {
-                                                            categories.map(category => (
-                                                                <li><Link to={`/collections/category/${category}`}>{category}</Link></li>
+                                                            categories && categories.map(category => (
+                                                                <li><Link to={`/collections/category/${category.name}`}>{category.name}</Link></li>
                                                             ))
                                                         }
 
@@ -207,8 +208,8 @@ const Header = ({ location }) => {
                                                     <h3>Brands</h3>
                                                     <ul>
                                                         {
-                                                            brands.map(brand => (
-                                                                <li><Link to={`/collections/brand/${brand}`}>{brand}</Link></li>
+                                                            brands && brands.map(brand => (
+                                                                <li><Link to={`/collections/brand/${brand.name}`}>{brand.name}</Link></li>
                                                             ))
                                                         }
                                                     </ul>

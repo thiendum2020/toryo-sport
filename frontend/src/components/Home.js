@@ -16,9 +16,9 @@ import Clients from './layouts/Clients'
 const Home = ({ history }) => {
     const dispatch = useDispatch()
     const alert = useAlert()
-    const { loadingF, featuredProducts, errorF } = useSelector(state => state.featuredProducts)
-    const { loadingH, hotProducts, errorH } = useSelector(state => state.hotProducts)
-    const { loadingL, latestProducts, errorL } = useSelector(state => state.latestProducts)
+    const { loading: loadingF, featuredProducts, error: errorF } = useSelector(state => state.featuredProducts)
+    const { loading: loadingH, hotProducts, error: errorH } = useSelector(state => state.hotProducts)
+    const { loading: loadingL, latestProducts, error: errorL } = useSelector(state => state.latestProducts)
 
     useEffect(() => {
         if (errorH) {

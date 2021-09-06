@@ -6,9 +6,10 @@ const APIFeatures = require('../utils/apiFeatures')
 //Create new product    POST/api/products
 exports.newProduct = catchAsyncErrors(async (req, res, next) => {
     req.body.user = req.user.id
-    const { name, price, stock, description, category, brand, images } = req.body
+    const { name, price, description, category, brand, images } = req.body
+    console.log("a" + brand);
     const product = await Product.create({
-        name, price, stock, description, category, brand, images
+        name, price, description, category, brand, images
     })
     res.status(201).json({
         success: true,
@@ -37,6 +38,7 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
         products
     })
 })
+
 exports.getFeaturedProducts = catchAsyncErrors(async (req, res, next) => {
 
     const featuredProducts = await Product.find().sort('-ratings').limit(4)
@@ -230,3 +232,4 @@ exports.getHotProductsByAdmin = catchAsyncErrors(async (req, res, next) => {
         hotProductsByAdmin
     })
 })
+

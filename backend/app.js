@@ -23,11 +23,16 @@ app.use(fileUpload({
 const products = require('./routes/productRouter')
 const auth = require('./routes/authRouter')
 const order = require('./routes/orderRouter')
+const category = require('./routes/categoryRouter')
+const brand = require('./routes/brandRouter')
+const receipt = require('./routes/receiptRouter')
 
-
+app.use('/api/', category)
+app.use('/api/', brand)
 app.use('/api/', products)
 app.use('/api/', auth)
 app.use('/api/', order)
+app.use('/api/', receipt)
 app.use('/api/', require('./routes/upload'))
 
 if (process.env.NODE_ENV === 'PRODUCTION') {

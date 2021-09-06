@@ -7,20 +7,13 @@ import axios from 'axios'
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateProduct, getProductDetails, clearErrors } from '../../actions/productActions'
+import { getBrands } from '../../actions/brandActions'
+import { getCategories } from '../../actions/categoryActions'
 import { UPDATE_PRODUCT_RESET, PRODUCT_DETAILS_RESET } from '../../constants/productConstants'
 
 const UpdateProduct = ({ match, history }) => {
-    const categories = [
-        'Accessories',
-        'Clothing',
-        'Shoes',
-    ]
-
-    const brands = [
-        'Adidas',
-        'Nike',
-        'Puma'
-    ]
+    const { brands } = useSelector(state => state.brands)
+    const { categories } = useSelector(state => state.categories)
     const [name, setName] = useState('')
     const [price, setPrice] = useState(0)
     const [description, setDescription] = useState('')
@@ -300,6 +293,7 @@ const UpdateProduct = ({ match, history }) => {
                                                 className="form-control"
                                                 value={stock}
                                                 onChange={(e) => setStock(e.target.value)}
+                                                disabled
                                             />
                                         </div>
                                     </div>
@@ -316,7 +310,7 @@ const UpdateProduct = ({ match, history }) => {
                                             <label htmlFor="category_field">Category</label>
                                             <select className="form-control" id="category_field" value={category} onChange={(e) => setCategory(e.target.value)}>
                                                 {categories.map(category => (
-                                                    <option key={category} value={category} >{category}</option>
+                                                    <option key={category._id} value={category._id} >{category.name}</option>
                                                 ))}
 
                                             </select>
@@ -327,7 +321,7 @@ const UpdateProduct = ({ match, history }) => {
                                             <label htmlFor="brand_field">Brand</label>
                                             <select className="form-control" id="brand_field" value={brand} onChange={(e) => setBrand(e.target.value)}>
                                                 {brands.map(brand => (
-                                                    <option key={brand} value={brand} >{brand}</option>
+                                                    <option key={brand._id} value={brand._id} >{brand.name}</option>
                                                 ))}
 
                                             </select>

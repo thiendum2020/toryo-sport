@@ -3,17 +3,17 @@ const mongoose = require('mongoose')
 const productSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
+        required: [true, 'Please enter the product name'],
         trim: true
     },
     price: {
         type: Number,
-        required: true,
+        required: [true, 'Please enter the product price'],
         default: 0
     },
     description: {
         type: String,
-        required: true,
+        required: [true, 'Please enter a description'],
     },
     ratings: {
         type: Number,
@@ -32,29 +32,14 @@ const productSchema = new mongoose.Schema({
         }
     ],
     category: {
-        type: String,
-        required: true,
-        enum: {
-            values: [
-                'Accessories',
-                'Clothing',
-                'Shoes',
-                'Balls',
-                'Cap',
-                'Socks'
-            ]
-        }
+        type: mongoose.Schema.ObjectId,
+        ref: 'Category',
+        required: true
     },
     brand: {
-        type: String,
-        required: true,
-        enum: {
-            values: [
-                'Adidas',
-                'Nike',
-                'Puma',
-            ]
-        }
+        type: mongoose.Schema.ObjectId,
+        ref: 'Brand',
+        required: true
     },
     stock: {
         type: Number,

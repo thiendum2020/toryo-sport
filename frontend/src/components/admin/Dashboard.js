@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAdminProducts, getHotProductsByAdmin } from '../../actions/productActions'
 import { allOrders } from '../../actions/orderActions'
 import { allUsers } from '../../actions/userActions'
+import { getBrands } from '../../actions/brandActions'
+import { getCategories } from '../../actions/categoryActions'
 
 const Dashboard = () => {
 
@@ -20,6 +22,8 @@ const Dashboard = () => {
     const { hotProductsByAdmin } = useSelector(state => state.hotProductsByAdmin)
     const { users } = useSelector(state => state.allUsers)
     const { orders, totalAmount, loading } = useSelector(state => state.allOrders)
+    const { brands } = useSelector(state => state.brands)
+    const { categories } = useSelector(state => state.categories)
 
     // let outOfStock = 0;
     // products && products.forEach(product => {
@@ -33,11 +37,12 @@ const Dashboard = () => {
         dispatch(getHotProductsByAdmin())
         dispatch(allOrders())
         dispatch(allUsers())
+        dispatch(getBrands())
+        dispatch(getCategories())
     }, [dispatch])
     const names = hotProductsByAdmin && hotProductsByAdmin.map(product => product.name.slice(0, 20));
     const solds = hotProductsByAdmin && hotProductsByAdmin.map(product => product.sold);
-    console.log(names);
-    console.log(solds);
+
     return (
         <Fragment>
             <div className="row admin-dashboard">
@@ -122,9 +127,43 @@ const Dashboard = () => {
                                     </div>
                                 </Link>
 
+                                <Link to='/admin/brands' className="col-xl-6 col-md-6 mb-4">
+                                    <div className="card border-left-orange shadow h-100 py-2">
+                                        <div className="card-body">
+                                            <div className="row no-gutters align-items-center">
+                                                <div className="col mr-2">
+                                                    <div className="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                        Brands</div>
+                                                    <div className="h5 mb-0 font-weight-bold text-gray-800">{brands && brands.length}</div>
+                                                </div>
+                                                <div className="col-auto">
+                                                    <i className="fas fa-band-aid fa-2x text-gray-300" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+
+                                <Link to='/admin/categories' className="col-xl-6 col-md-6 mb-4">
+                                    <div className="card border-left-purple shadow h-100 py-2">
+                                        <div className="card-body">
+                                            <div className="row no-gutters align-items-center">
+                                                <div className="col mr-2">
+                                                    <div className="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                        Categories</div>
+                                                    <div className="h5 mb-0 font-weight-bold text-gray-800">{categories && categories.length}</div>
+                                                </div>
+                                                <div className="col-auto">
+                                                    <i className="fas fa-bacteria fa-2x text-gray-300" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+
                             </div>
 
-                            {/* <h4 className="my-4">Top 10 Best-Selling Products</h4>
+                            <h4 className="my-4">Top 10 Best-Selling Products</h4>
 
                             <Bar
                                 data={{
@@ -155,7 +194,7 @@ const Dashboard = () => {
                                         text: "Predicted world population (millions) in 2050"
                                     }
                                 }}
-                            /> */}
+                            />
 
                         </Fragment>
                     )}

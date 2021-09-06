@@ -107,7 +107,7 @@ const ProductsList = ({ history }) => {
                         icon: "success",
                     })
                 } else {
-                    swal("Your imaginary file is safe!")
+                    swal("Haha Nope!")
                 }
             })
     }
@@ -123,7 +123,7 @@ const ProductsList = ({ history }) => {
                 <div className="col-12 col-md-10">
                     <Fragment>
                         <div className="users-list-header my-4">
-                            <h3>All Products (Total: {products.length})</h3>
+                            <h3>All Products (Total: {products && products.length})</h3>
                             <Link to='/admin/products/new' className="btn btn-new-user">Add New Product</Link>
                         </div>
 

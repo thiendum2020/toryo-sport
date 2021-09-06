@@ -7,27 +7,19 @@ import axios from 'axios'
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { newProduct, clearErrors } from '../../actions/productActions'
+import { getBrands } from '../../actions/brandActions'
+import { getCategories } from '../../actions/categoryActions'
 import { NEW_PRODUCT_RESET } from '../../constants/productConstants'
 
 const NewProduct = ({ history }) => {
 
-    const categories = [
-        'Accessories',
-        'Clothing',
-        'Shoes',
-    ]
-    const brands = [
-        'Adidas',
-        'Nike',
-        'Puma'
-    ]
-
+    const { brands } = useSelector(state => state.brands)
+    const { categories } = useSelector(state => state.categories)
     const [name, setName] = useState('')
     const [price, setPrice] = useState(0)
     const [description, setDescription] = useState('')
-    const [category, setCategory] = useState(categories[0])
-    const [brand, setBrand] = useState(brands[0])
-    const [stock, setStock] = useState(0)
+    const [category, setCategory] = useState('')
+    const [brand, setBrand] = useState('')
     const [images, setImages] = useState([])
     const [image1, setImage1] = useState('')
     const [image2, setImage2] = useState('')
@@ -38,14 +30,14 @@ const NewProduct = ({ history }) => {
     const [imagesPreview3, setImagesPreview3] = useState('/images/no-image.png')
     const [imagesPreview4, setImagesPreview4] = useState('/images/no-image.png')
 
-
     const alert = useAlert()
     const dispatch = useDispatch()
 
     const { loading, error, success } = useSelector(state => state.newProduct)
 
     useEffect(() => {
-
+        dispatch(getBrands())
+        dispatch(getCategories())
         if (error) {
             alert.error(error);
             dispatch(clearErrors())
@@ -69,10 +61,7 @@ const NewProduct = ({ history }) => {
             alert.error('Please enter the price greater than 0!')
             return
         }
-        if (stock === '') {
-            alert.error('Please enter the stock greater than 0!')
-            return
-        }
+
         if (description === '') {
             alert.error('Please enter a description!')
             return
@@ -81,7 +70,8 @@ const NewProduct = ({ history }) => {
             alert.error('Please add images!')
             return
         }
-        dispatch(newProduct(name, price, stock, description, category, brand, images))
+
+        dispatch(newProduct(name, price, description, category, brand, images))
     }
 
     const onChange1 = async e => {
@@ -246,31 +236,16 @@ const NewProduct = ({ history }) => {
                                         onChange={(e) => setName(e.target.value)}
                                     />
                                 </div>
-                                <div className="row">
-                                    <div className="col-6 col-md-6">
-                                        <div className="form-group">
-                                            <label htmlFor="price_field">Price</label>
-                                            <input
-                                                type="number"
-                                                id="price_field"
-                                                className="form-control"
-                                                value={price}
-                                                onChange={(e) => setPrice(e.target.value)}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="col-6 col-md-6">
-                                        <div className="form-group">
-                                            <label htmlFor="stock_field">Stock</label>
-                                            <input
-                                                type="number"
-                                                id="stock_field"
-                                                className="form-control"
-                                                value={stock}
-                                                onChange={(e) => setStock(e.target.value)}
-                                            />
-                                        </div>
-                                    </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="price_field">Price</label>
+                                    <input
+                                        type="number"
+                                        id="price_field"
+                                        className="form-control"
+                                        value={price}
+                                        onChange={(e) => setPrice(e.target.value)}
+                                    />
                                 </div>
 
                                 <div className="form-group">
@@ -283,10 +258,11 @@ const NewProduct = ({ history }) => {
                                             <label htmlFor="category_field">Category</label>
                                             <select className="form-control" id="category_field" value={category} onChange={(e) => setCategory(e.target.value)}>
                                                 {categories.map(category => (
-                                                    <option key={category} value={category} >{category}</option>
+                                                    <option key={category._id} value={category._id} >{category.name}</option>
                                                 ))}
 
                                             </select>
+                                            {category === '' && setCategory(categories[0]._id)}
                                         </div>
                                     </div>
                                     <div className="col-6 col-md-6">
@@ -294,10 +270,11 @@ const NewProduct = ({ history }) => {
                                             <label htmlFor="brand_field">Brand</label>
                                             <select className="form-control" id="brand_field" value={brand} onChange={(e) => setBrand(e.target.value)}>
                                                 {brands.map(brand => (
-                                                    <option key={brand} value={brand} >{brand}</option>
+                                                    <option key={brand._id} value={brand._id} >{brand.name}</option>
                                                 ))}
 
                                             </select>
+                                            {brand === '' && setBrand(brands[0]._id)}
                                         </div>
                                     </div>
                                 </div>

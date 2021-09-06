@@ -13,24 +13,17 @@ const Cart = ({ history }) => {
 
     const increaseQty = (id, quantity, size, stock) => {
         const newQty = quantity + 1;
-
         if (newQty > stock) return
-        console.log(size);
         dispatch(updateItemToCart(id, newQty, size, uid))
     }
 
     const decreaseQty = (id, size, quantity) => {
-
         const newQty = quantity - 1;
-
         if (newQty <= 0) return
-        console.log(size);
         dispatch(updateItemToCart(id, newQty, size, uid))
-
     }
 
     const removeCartItemHandler = (id, size) => {
-        console.log(size);
         dispatch(removeItemFromCart(id, size, uid))
     }
 

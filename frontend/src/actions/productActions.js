@@ -50,14 +50,14 @@ export const getProducts = (keyword = '', currentPage = 1, price, category, bran
         dispatch({ type: ALL_PRODUCTS_REQUEST })
         let link = `/api/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}`
         if (category) {
-            link = `/api/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&category=${category}`
+            const { data } = await axios.get(`/api/category/name/${category}`)
+            link = `/api/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&category=${data.category[0]._id}`
         }
-        if (brand) {
-            link = `/api/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&brand=${brand}`
+        else if (brand) {
+            const { data } = await axios.get(`/api/brand/name/${brand}`)
+            link = `/api/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&brand=${data.brand[0]._id}`
         }
-        if (category && brand) {
-            link = `/api/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&category=${category}&brand=${brand}`
-        }
+
         const { data } = await axios.get(link)
         dispatch({
             type: ALL_PRODUCTS_SUCCESS,
@@ -66,7 +66,7 @@ export const getProducts = (keyword = '', currentPage = 1, price, category, bran
     } catch (error) {
         dispatch({
             type: ALL_PRODUCTS_FAIL,
-            payload: error.response.data.message,
+            payload: error.response
         })
     }
 }
@@ -136,10 +136,14 @@ export const getProductCollections = (currentPage = 1, price, collections, colle
         dispatch({ type: ALL_PRODUCTS_REQUEST })
         let link = `/api/products?page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}`
         if (collections === 'brand') {
-            link = `/api/products?page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&brand=${collection}`
+            const { data } = await axios.get(`/api/brand/name/${collection}`)
+            link = `/api/products?page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&brand=${data.brand[0]._id}`
         }
         if (collections === 'category') {
-            link = `/api/products?page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&category=${collection}`
+            const { data } = await axios.get(`/api/category/name/${collection}`)
+            console.log(data);
+
+            link = `/api/products?page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&category=${data.category[0]._id}`
         }
         const { data } = await axios.get(link)
         dispatch({
@@ -221,7 +225,7 @@ export const getAdminProducts = () => async (dispatch) => {
 }
 
 // New product (Admin)
-export const newProduct = (name, price, stock, description, category, brand, images) => async (dispatch) => {
+export const newProduct = (name, price, description, category, brand, images) => async (dispatch) => {
     try {
 
         dispatch({ type: NEW_PRODUCT_REQUEST })
@@ -231,7 +235,7 @@ export const newProduct = (name, price, stock, description, category, brand, ima
                 'Content-Type': 'application/json'
             }
         }
-        const { data } = await axios.post(`/api/admin/product/new`, { name, price, stock, description, category, brand, images }, config)
+        const { data } = await axios.post(`/api/admin/product/new`, { name, price, description, category, brand, images }, config)
 
         dispatch({
             type: NEW_PRODUCT_SUCCESS,

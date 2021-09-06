@@ -6,7 +6,8 @@ import Product from './product/Product'
 import Loader from './layouts/Loader'
 import { useAlert } from 'react-alert'
 import Pagination from "react-js-pagination"
-
+import { getBrands } from '../actions/brandActions'
+import { getCategories } from '../actions/categoryActions'
 
 const Shop = ({ match, history }) => {
 
@@ -17,27 +18,27 @@ const Shop = ({ match, history }) => {
     const [category, setCategory] = useState('')
     const [brand, setBrand] = useState('')
     const [rating, setRating] = useState(0)
+    const { brands, loading: loadingBrand, error: errorBrand } = useSelector(state => state.brands)
+    const { categories, loading: loadingCategories, error: errorCategories } = useSelector(state => state.categories)
 
     const { loading, products, error, productsCount, resPerPage, filteredProductsCount } = useSelector(state => state.products)
     const keyword = match.params.keyword
-
-    const categories = [
-        'Accessories',
-        'Clothing',
-        'Shoes'
-    ]
-    const brands = [
-        'Adidas',
-        'Nike',
-        'Puma'
-    ]
 
     useEffect(() => {
         if (error) {
             return alert.error(error)
         }
         dispatch(getProducts(keyword, currentPage, price, category, brand))
-    }, [dispatch, alert, error, keyword, currentPage, price, category, brand])
+
+        if (errorBrand) {
+            return alert.error(errorBrand)
+        }
+        dispatch(getBrands())
+        if (errorCategories) {
+            return alert.error(errorCategories)
+        }
+        dispatch(getCategories())
+    }, [dispatch, alert, error, keyword, currentPage, price, category, brand, errorBrand, errorCategories])
 
     function setCurrentPageNo(pageNumber) {
         setCurrentPage(pageNumber)
@@ -76,15 +77,15 @@ const Shop = ({ match, history }) => {
                             <div className="col-3 filter">
                                 <h3>Categories</h3>
                                 <ul>
-                                    {categories.map(category => (
+                                    {categories && categories.map(category => (
                                         <li
                                             style={{
                                                 cursor: 'pointer',
                                                 listStyleType: 'none'
                                             }}
-                                            key={category}
-                                            onClick={() => setCategory(category)}>
-                                            {category}
+                                            key={category._id}
+                                            onClick={() => setCategory(category.name)}>
+                                            {category.name}
                                         </li>
                                     ))}
                                     <li
@@ -97,15 +98,15 @@ const Shop = ({ match, history }) => {
                                 <hr className="my-5" />
                                 <h3>Brands</h3>
                                 <ul>
-                                    {brands.map(brand => (
+                                    {brands && brands.map(brand => (
                                         <li
                                             style={{
                                                 cursor: 'pointer',
                                                 listStyleType: 'none'
                                             }}
-                                            key={brand}
-                                            onClick={() => setBrand(brand)}>
-                                            {brand}
+                                            key={brand._id}
+                                            onClick={() => setBrand(brand.name)}>
+                                            {brand.name}
                                         </li>
                                     ))}
                                     <li

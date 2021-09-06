@@ -95,7 +95,6 @@ export const featuredProductsReducer = (state = { featuredProducts: [] }, action
             return {
                 loading: false,
                 featuredProducts: action.payload
-
             }
         case PRODUCT_FEATURED_FAIL:
             return {
@@ -192,6 +191,7 @@ export const hotProductsByAdminReducer = (state = { hotProductsByAdmin: [] }, ac
             return state
     }
 }
+
 export const productDetailsReducer = (state = { product: {} }, action) => {
     switch (action.type) {
         case PRODUCT_DETAILS_REQUEST:

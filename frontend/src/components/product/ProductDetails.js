@@ -8,6 +8,8 @@ import ListReviews from './review/ListReviews'
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductDetails, clearErrors, newReview } from '../../actions/productActions'
+import { getCategoryDetailsById } from '../../actions/categoryActions'
+import { getBrandDetailsById } from '../../actions/brandActions'
 import { addItemToCart } from '../../actions/cartActions'
 import { NEW_REVIEW_RESET } from '../../constants/productConstants'
 
@@ -33,11 +35,15 @@ const ProductDetails = ({ match, history }) => {
     const alert = useAlert()
     const { loading, error, product } = useSelector(state => state.productDetails)
     const { error: reviewError, success } = useSelector(state => state.newReview)
+    const { brand } = useSelector(state => state.brandDetails)
+    const { category } = useSelector(state => state.categoryDetails)
     const { userLogin } = useSelector(state => state.auth)
     const uid = userLogin ? userLogin._id : null
 
     useEffect(() => {
         dispatch(getProductDetails(match.params.id))
+        dispatch(getBrandDetailsById(product.brand))
+        dispatch(getCategoryDetailsById(product.category))
 
         if (error) {
             alert.error(error);
@@ -54,7 +60,7 @@ const ProductDetails = ({ match, history }) => {
             dispatch({ type: NEW_REVIEW_RESET })
         }
 
-    }, [dispatch, alert, error, reviewError, success, match.params.id])
+    }, [dispatch, alert, error, reviewError, success, match.params.id, product.brand, product.category])
 
     const increaseQty = () => {
         const count = document.querySelector('.product-quantity')
@@ -163,11 +169,11 @@ const ProductDetails = ({ match, history }) => {
                                             <h2>{product.name}</h2>
                                             <div className="product-details-info">
                                                 <span>Brand: </span>
-                                                <Link to={`/collections/brand/${product.brand}`}>{product.brand}</Link>
+                                                <Link to={`/collections/brand/${brand && brand.name}`}>{brand && brand.name}</Link>
                                             </div>
                                             <div className="product-details-info">
                                                 <span>Category: </span>
-                                                <Link to={`/collections/category/${product.category}`}>{product.category}</Link>
+                                                <Link to={`/collections/category/${category && category.name}`}>{category && category.name}</Link>
                                             </div>
                                             <div className="product-details-info">
                                                 <div className="ratings">
@@ -205,17 +211,17 @@ const ProductDetails = ({ match, history }) => {
                                                                 <i className="bx bx-plus"></i>
                                                             </span>
                                                             {
-                                                                product.category === 'Accessories' ? <span style={{ marginLeft: '30px' }}>Size: Oversize</span> : (
+                                                                category && category.name === 'Accessories' ? <span style={{ marginLeft: '30px' }}>Size: Oversize</span> : (
                                                                     <select className="form-control" id="category_field" value={size} onChange={(e) => setSize(e.target.value)} style={{ marginLeft: '30px', width: '12%' }}>
                                                                         {
-                                                                            product.category === 'Clothing' ? (
+                                                                            category && category.name === 'Clothing' ? (
 
                                                                                 size1.map(s => (
                                                                                     <option key={s} value={s} >{s}</option>
                                                                                 ))
 
                                                                             ) : (
-                                                                                product.category === 'Shoes' ? (
+                                                                                category && category.name === 'Shoes' ? (
                                                                                     size2.map(s => (
                                                                                         <option key={s} value={s} >{s}</option>
                                                                                     ))
