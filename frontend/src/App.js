@@ -50,6 +50,12 @@ import UpdateBrand from './components/admin/UpdateBrand'
 import CategoriesList from './components/admin/CategoriesList'
 import NewCategory from './components/admin/NewCategory'
 import UpdateCategory from './components/admin/UpdateCategory'
+
+import ReceiptList from './components/admin/ReceiptList'
+import ImportReceiptItems from './components/admin/ImportReceiptItems'
+import ReceiptDetails from './components/admin/ReceiptDetails'
+import ConfirmReceipt from './components/admin/ConfirmReceipt'
+
 function App() {
 
     return (
@@ -101,6 +107,10 @@ function App() {
                 <ProtectedRoute path="/admin/categories/new" isAdmin={true} component={NewCategory} exact />
                 <ProtectedRoute path="/admin/category/:id" isAdmin={true} component={UpdateCategory} exact />
 
+                <ProtectedRoute path="/admin/receipts" isAdmin={true} component={ReceiptList} exact />
+                <ProtectedRoute path="/admin/receipt/:id" isAdmin={true} component={ReceiptDetails} exact />
+                <ProtectedRoute path="/admin/receipts/import" isAdmin={true} component={ImportReceiptItems} exact />
+                <ProtectedRoute path="/admin/receipts/confirm" isAdmin={true} component={ConfirmReceipt} exact />
                 <Footer />
 
             </Router>

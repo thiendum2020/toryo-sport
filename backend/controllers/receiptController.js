@@ -16,13 +16,15 @@ async function updateStock(id, quantity) {
 exports.newReceipt = catchAsyncErrors(async (req, res, next) => {
     const {
         receiptItems,
-        supplier
+        totalImportPrice,
+        supplierInfo
     } = req.body
 
     const receipt = await Receipt.create({
         user: req.user._id,
         receiptItems,
-        supplier
+        totalImportPrice,
+        supplier: supplierInfo
     })
 
     receipt.receiptItems.forEach(async item => {

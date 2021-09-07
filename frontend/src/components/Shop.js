@@ -60,7 +60,7 @@ const Shop = ({ match, history }) => {
                             <p>All Products</p>
                             <span>Total: {filteredProductsCount} products</span>
                         </div>
-                        <div className="sort">
+                        {/* <div className="sort">
                             <select >
                                 <option value="default">Default</option>
                                 <option value="prices-asc">Prices asc</option>
@@ -69,7 +69,7 @@ const Shop = ({ match, history }) => {
                                 <option value="name-z-a">Name Z - A</option>
                             </select>
 
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className="row">

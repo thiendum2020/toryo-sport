@@ -15,6 +15,10 @@ const receiptSchema = new mongoose.Schema({
                 ref: 'Product',
                 required: true
             },
+            image: {
+                type: String,
+                required: true
+            },
             name: {
                 type: String,
                 required: true
@@ -26,10 +30,19 @@ const receiptSchema = new mongoose.Schema({
             price: {
                 type: Number,
                 required: true
+            },
+            importPrice: {
+                type: Number,
+                required: true,
+                default: 0
             }
         }
     ],
-
+    totalImportPrice: {
+        type: Number,
+        required: true,
+        default: 0
+    },
     supplier: {
         name: { type: String, required: true },
         address: { type: String, required: true },

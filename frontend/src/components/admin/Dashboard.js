@@ -13,6 +13,7 @@ import { allOrders } from '../../actions/orderActions'
 import { allUsers } from '../../actions/userActions'
 import { getBrands } from '../../actions/brandActions'
 import { getCategories } from '../../actions/categoryActions'
+import { allReceipts } from '../../actions/receiptAction'
 
 const Dashboard = () => {
 
@@ -24,7 +25,8 @@ const Dashboard = () => {
     const { orders, totalAmount, loading } = useSelector(state => state.allOrders)
     const { brands } = useSelector(state => state.brands)
     const { categories } = useSelector(state => state.categories)
-
+    const { receipts } = useSelector(state => state.allReceipts)
+    const { importReceiptItems } = useSelector(state => state.importReceipt)
     // let outOfStock = 0;
     // products && products.forEach(product => {
     //     if (product.stock === 0) {
@@ -39,6 +41,7 @@ const Dashboard = () => {
         dispatch(allUsers())
         dispatch(getBrands())
         dispatch(getCategories())
+        dispatch(allReceipts())
     }, [dispatch])
     const names = hotProductsByAdmin && hotProductsByAdmin.map(product => product.name.slice(0, 20));
     const solds = hotProductsByAdmin && hotProductsByAdmin.map(product => product.sold);
@@ -152,6 +155,40 @@ const Dashboard = () => {
                                                     <div className="text-xs font-weight-bold text-info text-uppercase mb-1">
                                                         Categories</div>
                                                     <div className="h5 mb-0 font-weight-bold text-gray-800">{categories && categories.length}</div>
+                                                </div>
+                                                <div className="col-auto">
+                                                    <i className="fas fa-bacteria fa-2x text-gray-300" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+
+                                <Link to='/admin/receipts' className="col-xl-6 col-md-6 mb-4">
+                                    <div className="card border-left-purple shadow h-100 py-2">
+                                        <div className="card-body">
+                                            <div className="row no-gutters align-items-center">
+                                                <div className="col mr-2">
+                                                    <div className="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                        Receipts</div>
+                                                    <div className="h5 mb-0 font-weight-bold text-gray-800">{receipts && receipts.length}</div>
+                                                </div>
+                                                <div className="col-auto">
+                                                    <i className="fas fa-bacteria fa-2x text-gray-300" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+
+                                <Link to='/admin/receipts/import' className="col-xl-6 col-md-6 mb-4">
+                                    <div className="card border-left-purple shadow h-100 py-2">
+                                        <div className="card-body">
+                                            <div className="row no-gutters align-items-center">
+                                                <div className="col mr-2">
+                                                    <div className="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                        Import Receipt ItemsPrice</div>
+                                                    <div className="h5 mb-0 font-weight-bold text-gray-800">{importReceiptItems && importReceiptItems.length}</div>
                                                 </div>
                                                 <div className="col-auto">
                                                     <i className="fas fa-bacteria fa-2x text-gray-300" />

@@ -10,6 +10,7 @@ import swal from 'sweetalert'
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAdminProducts, deleteProduct, clearErrors } from '../../actions/productActions'
+import { addItemToImportReceipt } from '../../actions/receiptAction'
 import { DELETE_PRODUCT_RESET } from '../../constants/productConstants'
 
 const ProductsList = ({ history }) => {
@@ -79,17 +80,40 @@ const ProductsList = ({ history }) => {
                 price: `$${product.price}`,
                 stock: product.stock,
                 actions: <Fragment>
+                    <a href className="icon icon-delete" onClick={() => importToReceipt(product._id)}>
+                        <i class="fas fa-plus"></i>
+                    </a>
                     <Link to={`/admin/product/${product._id}`} className="icon icon-edit">
                         <i className="bx bxs-pencil" />
                     </Link>
                     <a href className="icon icon-delete" onClick={() => deleteProductHandler(product._id)}>
                         <i className='bx bxs-trash-alt' ></i>
                     </a>
+
                 </Fragment>
             })
         })
 
         return data;
+    }
+    const importToReceipt = (id) => {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    dispatch(addItemToImportReceipt(id, 1, 0))
+                    swal("Poof! Your imaginary file has been deleted!", {
+                        icon: "success",
+                    })
+                } else {
+                    swal("Haha Nope!")
+                }
+            })
     }
 
     const deleteProductHandler = (id) => {
@@ -111,6 +135,7 @@ const ProductsList = ({ history }) => {
                 }
             })
     }
+
 
     return (
         <Fragment>

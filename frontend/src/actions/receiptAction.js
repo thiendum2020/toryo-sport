@@ -17,8 +17,8 @@ export const addItemToImportReceipt = (id, quantity, importPrice) => async (disp
             image: data.product.images[0].url,
             stock: data.product.stock,
             price: data.product.price,
-            quantity,
-            importPrice
+            quantity: quantity,
+            importPrice: importPrice
         }
     })
 
@@ -26,9 +26,9 @@ export const addItemToImportReceipt = (id, quantity, importPrice) => async (disp
 }
 
 
-export const updateItemToCart = (id, quantity, importPrice) => async (dispatch, getState) => {
+export const updateItem = (id, quantity, importPrice) => async (dispatch, getState) => {
     const { data } = await axios.get(`/api/product/${id}`)
-
+    console.log(quantity);
     dispatch({
         type: UPDATE_TO_RECEIPT,
         payload: {
@@ -37,15 +37,15 @@ export const updateItemToCart = (id, quantity, importPrice) => async (dispatch, 
             image: data.product.images[0].url,
             stock: data.product.stock,
             price: data.product.price,
-            quantity,
-            importPrice
+            quantity: quantity,
+            importPrice: importPrice
         }
     })
 
     localStorage.setItem('importReceiptItems', JSON.stringify(getState().importReceipt.importReceiptItems))
 }
 
-export const removeItemFromCart = (id) => async (dispatch, getState) => {
+export const removeItem = (id) => async (dispatch, getState) => {
 
     dispatch({
         type: REMOVE_ITEM_RECEIPT,
@@ -53,7 +53,6 @@ export const removeItemFromCart = (id) => async (dispatch, getState) => {
             id: id
         }
     })
-
     localStorage.setItem('importReceiptItems', JSON.stringify(getState().importReceipt.importReceiptItems))
 }
 
@@ -84,6 +83,7 @@ export const createReceipt = (receipt) => async (dispatch, getState) => {
             type: CREATE_RECEIPT_SUCCESS,
             payload: data
         })
+        localStorage.removeItem('importReceiptItems')
 
     } catch (error) {
         dispatch({
@@ -105,7 +105,6 @@ export const getReceiptDetails = (id) => async (dispatch) => {
             }
         }
         const { data } = await axios.get(`/api/admin/receipt/${id}`, config)
-
         dispatch({
             type: RECEIPT_DETAILS_SUCCESS,
             payload: data.receipt

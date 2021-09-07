@@ -30,24 +30,24 @@ export const importReceiptReducer = (state = { importReceiptItems: [], supplierI
         case REMOVE_ITEM_RECEIPT:
             return {
                 ...state,
-                importReceiptItems: state.importReceiptItems.filter(i => i.product !== action.payload)
+                importReceiptItems: state.importReceiptItems.filter(i => i.product !== action.payload.id)
             }
 
-        // case UPDATE_TO_RECEIPT:
-        //     const updateItem = action.payload;
-        //     const isUpdateItemExist = state.cartItems.find(i => i.product === updateItem.product && i.size === updateItem.size)
-        //     if (isUpdateItemExist) {
+        case UPDATE_TO_RECEIPT:
+            const updateItem = action.payload;
+            const isUpdateItemExist = state.importReceiptItems.find(i => i.product === updateItem.product)
+            if (isUpdateItemExist) {
 
-        //         return {
-        //             ...state,
-        //             cartItems: state.cartItems.map(i => i.product === isUpdateItemExist.product && i.size === isUpdateItemExist.size ? updateItem : i)
-        //         }
-        //     } else {
-        //         return {
-        //             ...state,
-        //             cartItems: [...state.cartItems, updateItem]
-        //         }
-        //     }
+                return {
+                    ...state,
+                    importReceiptItems: state.importReceiptItems.map(i => i.product === isUpdateItemExist.product ? updateItem : i)
+                }
+            } else {
+                return {
+                    ...state,
+                    importReceiptItems: [...state.importReceiptItems, updateItem]
+                }
+            }
 
         case SAVE_SUPPLIER_INFO:
             return {
