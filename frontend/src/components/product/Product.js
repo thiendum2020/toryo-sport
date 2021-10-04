@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { addItemToCart } from '../../actions/cartActions'
+import NumberFormat from 'react-number-format'
+
 const Product = ({ product, col, history }) => {
     const dispatch = useDispatch()
     const { userLogin } = useSelector(state => state.auth)
@@ -39,7 +41,9 @@ const Product = ({ product, col, history }) => {
                 <span id="no_of_reviews">({product.numOfReviews} Reviews)</span>
             </div>
             <div className="d-flex" style={{ justifyContent: 'space-between' }}>
-                <p>${product.price}</p>
+                <p>
+                    <NumberFormat value={product.price} displayType={'text'} thousandSeparator={true} prefix={'đ '} />
+                </p>
                 <span>Sold: {product.sold}</span>
             </div>
 

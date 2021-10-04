@@ -10,8 +10,6 @@ async function updateStock(id, quantity) {
     await product.save({ validateBeforeSave: false })
 }
 
-
-
 //Create new receipt    POST/api/receipt/new
 exports.newReceipt = catchAsyncErrors(async (req, res, next) => {
     const {

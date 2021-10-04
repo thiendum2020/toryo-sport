@@ -61,7 +61,7 @@ const MyListOrders = () => {
             data.rows.push({
                 id: order._id,
                 createdAt: String(order.createdAt).substring(0, 10),
-                amount: [<NumberFormat value={order.totalPrice} displayType={'text'} thousandSeparator={true} prefix={'$'} ></NumberFormat>],
+                amount: <NumberFormat value={order.totalPrice} displayType={'text'} thousandSeparator={true} prefix={'đ '} />,
                 status: order.orderStatus && String(order.orderStatus).includes('Delivering')
                     ? <p style={{ color: 'blue' }}>{order.orderStatus}</p>
                     : order.orderStatus && String(order.orderStatus).includes('Cancelled')

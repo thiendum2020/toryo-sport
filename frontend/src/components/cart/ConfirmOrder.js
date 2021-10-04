@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import MetaData from '../layouts/MetaData'
 import CheckoutSteps from './CheckoutSteps'
-
+import NumberFormat from 'react-number-format'
 import { useSelector } from 'react-redux'
 
 const ConfirmOrder = ({ history }) => {
@@ -13,7 +13,7 @@ const ConfirmOrder = ({ history }) => {
 
     // Calculate Order Prices
     const itemsPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
-    const shippingPrice = itemsPrice > 2000 ? 0 : 50
+    const shippingPrice = itemsPrice > 500000 ? 0 : 50000
     const taxPrice = Number((0.1 * itemsPrice))
     const totalPrice = (itemsPrice + shippingPrice + taxPrice)
 
@@ -64,7 +64,8 @@ const ConfirmOrder = ({ history }) => {
 
 
                                             <div className="col-2 col-lg-4 mt-4 mt-lg-0">
-                                                <p>{item.quantity} x ${item.price} = <b>${(item.quantity * item.price)}</b></p>
+
+                                                <p>{item.quantity} x <NumberFormat value={item.price} displayType={'text'} thousandSeparator={true} prefix={'đ '} /> = <b><NumberFormat value={(item.quantity * item.price)} displayType={'text'} thousandSeparator={true} prefix={'đ '} /></b></p>
                                             </div>
 
                                         </div>
@@ -81,13 +82,13 @@ const ConfirmOrder = ({ history }) => {
                             <div id="order_summary">
                                 <h4>Order Summary</h4>
                                 <hr />
-                                <p>Subtotal:  <span className="order-summary-values">${itemsPrice}</span></p>
-                                <p>Shipping: <span className="order-summary-values">${shippingPrice}</span></p>
-                                <p>Tax:  <span className="order-summary-values">${taxPrice}</span></p>
+                                <p>Subtotal:  <span className="order-summary-values"><NumberFormat value={itemsPrice} displayType={'text'} thousandSeparator={true} prefix={'đ '} /></span></p>
+                                <p>Shipping: <span className="order-summary-values"><NumberFormat value={shippingPrice} displayType={'text'} thousandSeparator={true} prefix={'đ '} /></span></p>
+                                <p>Tax:  <span className="order-summary-values"><NumberFormat value={taxPrice} displayType={'text'} thousandSeparator={true} prefix={'đ '} /></span></p>
 
                                 <hr />
 
-                                <h5>Total: <span className="order-summary-values">${totalPrice}</span></h5>
+                                <h5>Total: <span className="order-summary-values"><NumberFormat value={totalPrice} displayType={'text'} thousandSeparator={true} prefix={'đ '} /></span></h5>
 
                                 <hr />
                                 <button id="checkout_btn" className="btn btn-block btn-order-summary" onClick={processToPayment}>Proceed to Payment</button>

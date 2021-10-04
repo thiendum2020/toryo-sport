@@ -6,6 +6,7 @@ import MetaData from '../layouts/MetaData'
 import Loader from '../layouts/Loader'
 import Sidebar from './Sidebar'
 import swal from 'sweetalert'
+import NumberFormat from 'react-number-format'
 
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
@@ -77,7 +78,7 @@ const ProductsList = ({ history }) => {
             data.rows.push({
                 id: product._id,
                 name: product.name,
-                price: `$${product.price}`,
+                price: <NumberFormat value={product.price} displayType={'text'} thousandSeparator={true} prefix={'đ '} />,
                 stock: product.stock,
                 actions: <Fragment>
                     <a href className="icon icon-delete" onClick={() => importToReceipt(product._id)}>

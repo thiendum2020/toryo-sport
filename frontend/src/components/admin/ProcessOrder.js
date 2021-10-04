@@ -5,6 +5,7 @@ import MetaData from '../layouts/MetaData'
 import Loader from '../layouts/Loader'
 import Sidebar from './Sidebar'
 import swal from 'sweetalert'
+import NumberFormat from 'react-number-format'
 
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
@@ -118,7 +119,7 @@ const ProcessOrder = ({ match }) => {
                                 <p><b>Name:</b> {user && user.name}</p>
                                 <p><b>Phone:</b> {shippingInfo && shippingInfo.phone}</p>
                                 <p className="mb-4"><b>Address:</b> {shippingDetails}</p>
-                                <p><b>Amount:</b> ${totalPrice}</p>
+                                <p><b>Amount: <NumberFormat value={totalPrice} displayType={'text'} thousandSeparator={true} prefix={'đ '} /></b></p>
 
                                 <hr />
                                 <h4 className="my-4">Order Items:</h4>
@@ -134,11 +135,11 @@ const ProcessOrder = ({ match }) => {
                                             </div>
 
 
-                                            <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                                                <p>${item.price}</p>
+                                            <div className="col-4 col-lg-3 mt-4 mt-lg-0">
+                                                <p><NumberFormat value={item.price} displayType={'text'} thousandSeparator={true} prefix={'đ '} /></p>
                                             </div>
 
-                                            <div className="col-4 col-lg-3 mt-4 mt-lg-0">
+                                            <div className="col-4 col-lg-2 mt-4 mt-lg-0">
                                                 <p>{item.quantity} Piece(s)</p>
                                             </div>
                                         </div>

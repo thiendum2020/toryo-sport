@@ -1061,7 +1061,7 @@ footer ul li {
     color: #555;
     margin-bottom: 50px;
 }
-.product-details-info h3 {
+.product-details-info h3 span {
     font-size: 28px;
     font-weight: 600;
     color: var(--red);

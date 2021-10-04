@@ -4,6 +4,8 @@ import MetaData from '../layouts/MetaData'
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateItemToCart, removeItemFromCart } from '../../actions/cartActions'
+import swal from 'sweetalert'
+import NumberFormat from 'react-number-format'
 
 const Cart = ({ history }) => {
     const dispatch = useDispatch()
@@ -24,7 +26,23 @@ const Cart = ({ history }) => {
     }
 
     const removeCartItemHandler = (id, size) => {
-        dispatch(removeItemFromCart(id, size, uid))
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    dispatch(removeItemFromCart(id, size, uid))
+                    swal("Poof! Your cart items has been deleted!", {
+                        icon: "success",
+                    })
+                } else {
+                    swal("Haha Nope!")
+                }
+            })
     }
 
     const checkoutHandler = () => {
@@ -67,7 +85,9 @@ const Cart = ({ history }) => {
                                                                                             <Link to={`/product/${item.product}`}>
                                                                                                 <p className="cart-item-name"><b>{item.name}</b></p>
                                                                                             </Link>
-                                                                                            <p>Price: ${item.price}</p>
+                                                                                            <p>
+                                                                                                <NumberFormat value={item.price} displayType={'text'} thousandSeparator={true} prefix={'đ '} />
+                                                                                            </p>
                                                                                             <span onClick={() => removeCartItemHandler(item.product, item.size)} >Remove</span>
                                                                                         </div>
                                                                                     </div>
@@ -87,7 +107,9 @@ const Cart = ({ history }) => {
 
                                                                                     </div>
                                                                                 </td>
-                                                                                <td style={{ textAlign: "right" }}>${item.price * item.quantity}</td>
+                                                                                <td style={{ textAlign: "right" }}>
+                                                                                    <NumberFormat value={item.price * item.quantity} displayType={'text'} thousandSeparator={true} prefix={'đ '} />
+                                                                                </td>
                                                                             </tr>
                                                                         ))
                                                                     }
@@ -105,7 +127,11 @@ const Cart = ({ history }) => {
                                                                         </tr>
                                                                         <tr>
                                                                             <td><b>Subtotal</b></td>
-                                                                            <td><b>${cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0)}</b></td>
+                                                                            <td>
+                                                                                <b>
+                                                                                    <NumberFormat value={cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0)} displayType={'text'} thousandSeparator={true} prefix={'đ '} />
+                                                                                </b>
+                                                                            </td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>

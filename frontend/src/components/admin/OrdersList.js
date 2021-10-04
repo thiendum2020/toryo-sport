@@ -5,6 +5,7 @@ import { MDBDataTableV5 } from 'mdbreact'
 import MetaData from '../layouts/MetaData'
 import Loader from '../layouts/Loader'
 import Sidebar from './Sidebar'
+import NumberFormat from 'react-number-format'
 
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
@@ -80,7 +81,7 @@ const OrdersList = ({ history }) => {
                 id: order._id,
                 createdAt: String(order.createdAt).substring(0, 10),
                 amount: order.orderItems.length,
-                totalPrices: `$${order.totalPrice}`,
+                totalPrices: <NumberFormat value={order.totalPrice} displayType={'text'} thousandSeparator={true} prefix={'đ '} />,
                 status: order.orderStatus && String(order.orderStatus).includes('Delivering')
                     ? <p style={{ color: 'blue' }}>{order.orderStatus}</p>
                     : order.orderStatus && String(order.orderStatus).includes('Cancelled')

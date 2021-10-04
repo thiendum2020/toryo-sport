@@ -14,7 +14,6 @@ const Shop = ({ match, history }) => {
     const dispatch = useDispatch()
     const alert = useAlert()
     const [currentPage, setCurrentPage] = useState(1)
-    const [price, setPrice] = useState([1, 10000000])
     const [category, setCategory] = useState('')
     const [brand, setBrand] = useState('')
     const [rating, setRating] = useState(0)
@@ -28,7 +27,7 @@ const Shop = ({ match, history }) => {
         if (error) {
             return alert.error(error)
         }
-        dispatch(getProducts(keyword, currentPage, price, category, brand))
+        dispatch(getProducts(keyword, currentPage, category, brand))
 
         if (errorBrand) {
             return alert.error(errorBrand)
@@ -38,7 +37,7 @@ const Shop = ({ match, history }) => {
             return alert.error(errorCategories)
         }
         dispatch(getCategories())
-    }, [dispatch, alert, error, keyword, currentPage, price, category, brand, errorBrand, errorCategories])
+    }, [dispatch, alert, error, keyword, currentPage, category, brand, errorBrand, errorCategories])
 
     function setCurrentPageNo(pageNumber) {
         setCurrentPage(pageNumber)

@@ -1,8 +1,9 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 
 import MetaData from '../layouts/MetaData'
 import Loader from '../layouts/Loader'
+import NumberFormat from 'react-number-format'
 import Sidebar from './Sidebar'
 import { Bar } from "react-chartjs-2"
 
@@ -18,7 +19,8 @@ import { allReceipts } from '../../actions/receiptAction'
 const Dashboard = () => {
 
     const dispatch = useDispatch();
-
+    const [dateFrom, setDateFrom] = useState('01-01-2021')
+    const [dateTo, setDateTo] = useState('09-09-2021')
     const { products } = useSelector(state => state.products)
     const { hotProductsByAdmin } = useSelector(state => state.hotProductsByAdmin)
     const { users } = useSelector(state => state.allUsers)
@@ -27,16 +29,10 @@ const Dashboard = () => {
     const { categories } = useSelector(state => state.categories)
     const { receipts } = useSelector(state => state.allReceipts)
     const { importReceiptItems } = useSelector(state => state.importReceipt)
-    // let outOfStock = 0;
-    // products && products.forEach(product => {
-    //     if (product.stock === 0) {
-    //         outOfStock += 1;
-    //     }
-    // })
 
     useEffect(() => {
         dispatch(getAdminProducts())
-        dispatch(getHotProductsByAdmin())
+        dispatch(getHotProductsByAdmin(dateFrom, dateTo))
         dispatch(allOrders())
         dispatch(allUsers())
         dispatch(getBrands())
@@ -46,6 +42,11 @@ const Dashboard = () => {
     const names = hotProductsByAdmin && hotProductsByAdmin.map(product => product.name.slice(0, 20));
     const solds = hotProductsByAdmin && hotProductsByAdmin.map(product => product.sold);
 
+    const submitHandler = (e) => {
+        e.preventDefault()
+
+        dispatch(getHotProductsByAdmin(dateFrom, dateTo))
+    }
     return (
         <Fragment>
             <div className="row admin-dashboard">
@@ -86,7 +87,7 @@ const Dashboard = () => {
                                                 <div className="col mr-2">
                                                     <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                         Total Amount</div>
-                                                    <div className="h5 mb-0 font-weight-bold text-gray-800">${totalAmount && totalAmount}</div>
+                                                    <div className="h5 mb-0 font-weight-bold text-gray-800"><NumberFormat value={totalAmount && totalAmount} displayType={'text'} thousandSeparator={true} prefix={'đ '} /></div>
                                                 </div>
                                                 <div className="col-auto">
                                                     <i className="fas fa-dollar-sign fa-2x text-gray-300" />
@@ -199,8 +200,52 @@ const Dashboard = () => {
                                 </Link>
 
                             </div>
+                            <div className="row">
+                                <div className="col-4">
+                                    <h4 className="my-4">Top 10 Best-Selling Products</h4>
+                                </div>
+                                <div className="col-8">
+                                    <div class="row my-4">
+                                        <div className="col-2">
+                                            <label htmlFor="name_field">Date From</label>
+                                        </div>
+                                        <div className="col-2">
+                                            <input
+                                                type="text"
+                                                id="name_field"
+                                                className="form-control"
+                                                value={dateFrom}
+                                                onChange={(e) => setDateFrom(e.target.value)}
+                                            />
+                                        </div>
+                                        <div className="col-2">
+                                            <label htmlFor="name_field">Date From</label>
 
-                            <h4 className="my-4">Top 10 Best-Selling Products</h4>
+                                        </div>
+                                        <div className="col-2">
+                                            <input
+                                                type="text"
+                                                id="name_field"
+                                                className="form-control"
+                                                value={dateTo}
+                                                onChange={(e) => setDateTo(e.target.value)}
+                                            />
+                                        </div>
+                                        <div className="col-4">
+                                            <button
+                                                style={{ margin: '0' }}
+                                                id="create_button"
+                                                type="submit"
+                                                className="btn btn-update"
+                                                onClick={submitHandler}>
+                                                Submit
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
 
                             <Bar
                                 data={{

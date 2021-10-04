@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import MetaData from '../layouts/MetaData'
 import Loader from '../layouts/Loader'
 import MenuProfile from '../user/MenuProfile'
+import NumberFormat from 'react-number-format'
 
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,7 +16,7 @@ const OrderDetails = ({ match }) => {
 
     const alert = useAlert()
     const dispatch = useDispatch()
-
+    const { userLogin } = useSelector(state => state.auth)
     const { loading, error, order = {} } = useSelector(state => state.orderDetails)
     const { shippingInfo, orderItems, paymentInfo, user, totalPrice, orderStatus, paidAt, deliveredAt, receivedAt, createdAt } = order
     const { error: errorUpdateOrder, isUpdated } = useSelector(state => state.order)
@@ -58,11 +59,11 @@ const OrderDetails = ({ match }) => {
             .then((willDelete) => {
                 if (willDelete) {
                     dispatch(updateStatusOrder(match.params.id, status))
-                    swal("Poof! Your imaginary file has been deleted!", {
+                    swal("Poof! Your order has been canceled!", {
                         icon: "success",
                     })
                 } else {
-                    swal("Your imaginary file is safe!")
+                    swal("Haha Nope!")
                 }
             })
     }
@@ -111,13 +112,13 @@ const OrderDetails = ({ match }) => {
                                 <Fragment>
                                     <div className="my-orders">
                                         <div className="row">
-                                            <div className="col-7">
+                                            <div className="col-8">
                                                 <h4 className="mb-4">Order #{order._id}</h4>
 
-                                                <p><b>Name: </b> {user && user.name}</p>
+                                                <p><b>Name: </b> {userLogin && userLogin.name}</p>
                                                 <p><b>Phone: </b> {shippingInfo && shippingInfo.phone}</p>
                                                 <p><b>Address: </b>{shippingDetails}</p>
-                                                <p><b>Amount:</b> ${totalPrice}</p>
+                                                <p><b>Amount:</b> <NumberFormat value={totalPrice} displayType={'text'} thousandSeparator={true} prefix={'đ '} /></p>
                                                 <p><b>Time:</b> {time}</p>
 
                                                 <h5 className="my-4">Order Items:</h5>
@@ -138,18 +139,18 @@ const OrderDetails = ({ match }) => {
                                                             </div>
 
 
-                                                            <div className="col-4 col-lg-2 mt-4 mt-lg-0">
-                                                                <p>${item.price}</p>
+                                                            <div className="col-4 col-lg-3 mt-4 mt-lg-0">
+                                                                <p><NumberFormat value={item.price} displayType={'text'} thousandSeparator={true} prefix={'đ '} /></p>
                                                             </div>
 
-                                                            <div className="col-4 col-lg-3 mt-4 mt-lg-0">
+                                                            <div className="col-4 col-lg-2 mt-4 mt-lg-0">
                                                                 <p>{item.quantity} Piece(s)</p>
                                                             </div>
                                                         </div>
                                                     ))}
                                                 </div>
                                             </div>
-                                            <div className="col-5">
+                                            <div className="col-4">
                                                 <div id="order_summary">
                                                     <p>Payment Method:
                                                         <span className="order-summary-values">{paymentInfo && paymentInfo.name}</span>

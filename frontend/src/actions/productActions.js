@@ -45,19 +45,26 @@ import {
 
 import axios from 'axios'
 
-export const getProducts = (keyword = '', currentPage = 1, price, category, brand) => async (dispatch) => {
+export const getProducts = (keyword = '', currentPage = 1, category, brand) => async (dispatch) => {
     try {
         dispatch({ type: ALL_PRODUCTS_REQUEST })
-        let link = `/api/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}`
-        if (category) {
-            const { data } = await axios.get(`/api/category/name/${category}`)
-            link = `/api/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&category=${data.category[0]._id}`
-        }
-        else if (brand) {
-            const { data } = await axios.get(`/api/brand/name/${brand}`)
-            link = `/api/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&brand=${data.brand[0]._id}`
-        }
+        let link = `/api/products?keyword=${keyword}&page=${currentPage}`
 
+        if (category && brand) {
+            const dataCate = await axios.get(`/api/brand/name/${brand}`)
+            const dataBrand = await axios.get(`/api/category/name/${category}`)
+            link = `/api/products?keyword=${keyword}&page=${currentPage}&brand=${dataCate.data.brand[0]._id}&category=${dataBrand.data.category[0]._id}`
+
+        } else {
+            if (category) {
+                const { data } = await axios.get(`/api/category/name/${category}`)
+                link = `/api/products?keyword=${keyword}&page=${currentPage}&category=${data.category[0]._id}`
+            }
+            else if (brand) {
+                const { data } = await axios.get(`/api/brand/name/${brand}`)
+                link = `/api/products?keyword=${keyword}&page=${currentPage}&brand=${data.brand[0]._id}`
+            }
+        }
         const { data } = await axios.get(link)
         dispatch({
             type: ALL_PRODUCTS_SUCCESS,
@@ -116,10 +123,15 @@ export const getLatestProducts = () => async (dispatch) => {
         })
     }
 }
-export const getHotProductsByAdmin = () => async (dispatch) => {
+export const getHotProductsByAdmin = (dateFrom, dateTo) => async (dispatch) => {
     try {
         dispatch({ type: ADMIN_PRODUCTS_CHARTS_REQUEST })
-        const { data } = await axios.get('/api/admin/products/charts')
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const { data } = await axios.post('/api/admin/products/charts', { dateFrom, dateTo }, config)
         dispatch({
             type: ADMIN_PRODUCTS_CHARTS_SUCCESS,
             payload: data.hotProductsByAdmin
@@ -131,19 +143,19 @@ export const getHotProductsByAdmin = () => async (dispatch) => {
         })
     }
 }
-export const getProductCollections = (currentPage = 1, price, collections, collection) => async (dispatch) => {
+export const getProductCollections = (currentPage = 1, collections, collection) => async (dispatch) => {
     try {
         dispatch({ type: ALL_PRODUCTS_REQUEST })
-        let link = `/api/products?page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}`
+        let link = `/api/products?page=${currentPage}`
         if (collections === 'brand') {
             const { data } = await axios.get(`/api/brand/name/${collection}`)
-            link = `/api/products?page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&brand=${data.brand[0]._id}`
+            link = `/api/products?page=${currentPage}&brand=${data.brand[0]._id}`
         }
         if (collections === 'category') {
             const { data } = await axios.get(`/api/category/name/${collection}`)
             console.log(data);
 
-            link = `/api/products?page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&category=${data.category[0]._id}`
+            link = `/api/products?page=${currentPage}&category=${data.category[0]._id}`
         }
         const { data } = await axios.get(link)
         dispatch({

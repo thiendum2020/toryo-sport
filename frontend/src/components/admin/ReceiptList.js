@@ -5,6 +5,7 @@ import { MDBDataTableV5 } from 'mdbreact'
 import MetaData from '../layouts/MetaData'
 import Loader from '../layouts/Loader'
 import Sidebar from './Sidebar'
+import NumberFormat from 'react-number-format'
 
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
@@ -59,7 +60,7 @@ const ReceiptList = ({ history }) => {
                 id: receipt._id,
                 createdAt: String(receipt.createdAt).substring(0, 10),
                 user: receipt.user,
-                totalImportPrice: `${receipt.totalImportPrice}`,
+                totalImportPrice: <NumberFormat value={receipt.totalImportPrice} displayType={'text'} thousandSeparator={true} prefix={'đ '} />,
 
                 actions:
                     <Link to={`/admin/receipt/${receipt._id}`} className="btn-order-details" style={{ paddingLeft: '16px' }}>

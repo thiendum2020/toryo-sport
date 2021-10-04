@@ -6,6 +6,7 @@ import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { createOrder, clearErrors } from '../../actions/orderActions'
 import swal from 'sweetalert'
+import NumberFormat from 'react-number-format'
 import { CART_RESET } from '../../constants/cartConstants'
 
 const Payment = ({ history }) => {
@@ -113,7 +114,7 @@ const Payment = ({ history }) => {
                             id="pay_btn"
                             type="submit"
                             className="btn btn-block py-3">
-                            Pay - ${`${orderInfo && orderInfo.totalPrice}`}
+                            Pay - <NumberFormat value={`${orderInfo && orderInfo.totalPrice}`} displayType={'text'} thousandSeparator={true} prefix={'đ '} />
                         </button>
 
                     </form>

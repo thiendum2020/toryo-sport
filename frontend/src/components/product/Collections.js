@@ -13,7 +13,6 @@ const Collections = ({ match }) => {
     const dispatch = useDispatch()
     const alert = useAlert()
     const [currentPage, setCurrentPage] = useState(1)
-    const [price, setPrice] = useState([1, 1000000])
     const [rating, setRating] = useState(0)
 
     const { loading, products, error, productsCount, resPerPage, filteredProductsCount } = useSelector(state => state.products)
@@ -24,8 +23,8 @@ const Collections = ({ match }) => {
         if (error) {
             return alert.error(error)
         }
-        dispatch(getProductCollections(currentPage, price, collections, collection))
-    }, [dispatch, alert, error, currentPage, price, collections, collection])
+        dispatch(getProductCollections(currentPage, collections, collection))
+    }, [dispatch, alert, error, currentPage, collections, collection])
 
     function setCurrentPageNo(pageNumber) {
         setCurrentPage(pageNumber)
